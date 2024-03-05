@@ -355,4 +355,8 @@ dist/
 npm-debug.log
 yarn-error.log
 
+
+# MAC
+.DS_Store
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,vue,vuejs,intellij,java,node
