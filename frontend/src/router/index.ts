@@ -8,6 +8,8 @@
 import { createRouter, createWebHistory } from "vue-router/auto";
 import { setupLayouts } from "virtual:generated-layouts";
 import index from "@/pages/index.vue";
+import Login from "@/pages/Login.vue";
+import SignUp from "@/pages/SignUp.vue";
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   extendRoutes: setupLayouts,
@@ -20,12 +22,12 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: index,
+      component: Login,
     },
     {
       path: "/signup",
       name: "signup",
-      component: index,
+      component: SignUp,
     },
     {
       path: "/mypage",

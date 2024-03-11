@@ -17,9 +17,12 @@ import { ref, watch, onMounted } from "vue";
     <RouterLink to="/">
       <v-btn text="서비스 사용하기"></v-btn>
     </RouterLink>
-
-    <v-btn text="로그인"></v-btn>
-    <v-btn text="회원가입"></v-btn>
+    <RouterLink to="/login">
+      <v-btn text="로그인"></v-btn>
+    </RouterLink>
+    <RouterLink to="/signup">
+      <v-btn text="회원가입"></v-btn>
+    </RouterLink>
   </v-app-bar>
 </template>
 <style>
