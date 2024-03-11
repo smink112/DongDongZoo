@@ -1,6 +1,7 @@
 package com.dongdong.zoo.like.model;
 
 import com.dongdong.zoo.song.model.Song;
+import com.dongdong.zoo.story.model.Story;
 import com.dongdong.zoo.user.model.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -15,10 +16,10 @@ public class StoryLikes {
     private Long storyLikesId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "song_id")
+    @JoinColumn(name = "story_id")
     @JsonManagedReference
     @Setter
-    private Song song;
+    private Story story;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
