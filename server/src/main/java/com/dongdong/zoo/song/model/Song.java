@@ -1,5 +1,7 @@
 package com.dongdong.zoo.song.model;
 
+import com.dongdong.zoo.like.model.SongLikes;
+import com.dongdong.zoo.story.model.Story;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,5 +34,15 @@ public class Song {
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Lyrics> lyricsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Story> storyList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<SongLikes> songLikesList = new ArrayList<>();
+
+
 
 }
