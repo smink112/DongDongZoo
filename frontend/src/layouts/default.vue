@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <DefaultBar />
-
-    <DefaultView />
+    <v-container>
+      <DefaultBar />
+      <DefaultView />
+      <Footer />
+    </v-container>
   </v-app>
-  <Footer />
 </template>
 
 <script lang="ts" setup>
