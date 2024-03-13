@@ -17,6 +17,7 @@ public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "song_id")
     private Long songId;
 
     // 동요 이름

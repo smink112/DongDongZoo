@@ -11,10 +11,13 @@ public class LyricsKeyword {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lyrics_keyword_id")
     private Long lyricsKeywordId;
 
     //키워드
     private String keyword;
+    @Column(name = "lyrics_id", insertable = false, updatable = false)
+    private Long lyricsId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lyrics_id")
