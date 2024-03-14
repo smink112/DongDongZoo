@@ -11,7 +11,6 @@ export const useUserStore = defineStore("user", {
   state: () => ({
     user: null as User,
   }),
-
   actions: {
     async fetchDummyUser() {
       const user = {
@@ -50,6 +49,5 @@ export const useUserStore = defineStore("user", {
       const user = await res.json();
       this.user = user;
     },
-    persist: true,
   },
 });

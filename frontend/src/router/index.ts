@@ -3,6 +3,7 @@ import index from "@/pages/index.vue";
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
 import { useUserStore } from "@/store/app";
+import { useLoadingStore } from "@/store/loading";
 import { RouteRecordRaw } from "vue-router";
 const routes = [
   {
@@ -45,6 +46,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const loadingStore = useLoadingStore();
+  loadingStore.contentLoading();
+
   if (to.meta.requiresAuth !== undefined) {
     const userStore = useUserStore();
     if (to.matched.some((record) => record.meta.requiresAuth)) {

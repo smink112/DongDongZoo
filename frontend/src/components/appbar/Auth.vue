@@ -6,18 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 const props = defineProps<{ user: User }>();
 
-const user = ref<User | null>(null);
+const user = ref<User>(null);
 
 const drawerState = ref(false);
-
-const items = ref([
-  {
-    title: 1,
-  },
-  {
-    title: 2,
-  },
-]);
 
 watch(
   () => props.user,
