@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, toRefs, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const showBanner1 = ref(false);
-const showText1 = ref(false);
 const showBanner2 = ref(false);
-const showText2 = ref(false);
 const showBanner3 = ref(false);
-const showText3 = ref(false);
-const showButtton = ref(false);
 
 const doScroll = (event: any) => {
   const el = event.target.documentElement;
@@ -15,18 +11,10 @@ const doScroll = (event: any) => {
   console.log(scrollTop);
   if (scrollTop > 100 && !showBanner1.value) {
     showBanner1.value = true;
-  } else if (scrollTop > 50 && !showText1.value) {
-    showText1.value = true;
   } else if (scrollTop > 350 && !showBanner2.value) {
     showBanner2.value = true;
-  } else if (scrollTop > 300 && !showText2.value) {
-    showText2.value = true;
   } else if (scrollTop > 900 && !showBanner3.value) {
     showBanner3.value = true;
-  } else if (scrollTop > 900 && !showText3.value) {
-    showText3.value = true;
-  } else if (scrollTop > 1800 && !showButtton.value) {
-    showButtton.value = true;
   }
 };
 
