@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from "pinia";
-import { Authentication } from "@/types";
+import { Authentication, User } from "@/types";
 export const useAppStore = defineStore("app", {
   state: () => ({
     //
@@ -9,10 +9,19 @@ export const useAppStore = defineStore("app", {
 
 export const useUserStore = defineStore("user", {
   state: () => ({
-    user: null,
+    user: null as User,
   }),
 
   actions: {
+    async fetchDummyUser() {
+      const user = {
+        id: 1,
+        nickName: "동동이",
+        profile: "1234",
+      };
+      this.user = user;
+    },
+
     async fetchUser() {
       const res = await fetch("https://localhost:3000/user");
 
@@ -41,5 +50,6 @@ export const useUserStore = defineStore("user", {
       const user = await res.json();
       this.user = user;
     },
+    persist: true,
   },
 });

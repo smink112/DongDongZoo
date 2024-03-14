@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 import { ref, watch, onMounted } from "vue";
+import { useUserStore } from "@/store/app";
+import Auth from "@/components/appbar/Auth.vue";
+import NotAuth from "@/components/appbar/NotAuth.vue";
+const store = useUserStore();
+store.fetchDummyUser();
+
+const user = ref(store.user);
 </script>
 <template>
   <v-app-bar :elevation="0">
@@ -17,12 +24,8 @@ import { ref, watch, onMounted } from "vue";
     <RouterLink to="/">
       <v-btn text="서비스 사용하기"></v-btn>
     </RouterLink>
-    <RouterLink to="/login">
-      <v-btn text="로그인"></v-btn>
-    </RouterLink>
-    <RouterLink to="/signup">
-      <v-btn text="회원가입"></v-btn>
-    </RouterLink>
+    <Auth v-if="user" :user="user" />
+    <NotAuth v-else />
   </v-app-bar>
 </template>
 <style>
