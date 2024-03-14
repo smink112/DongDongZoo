@@ -29,7 +29,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <v-container fluid>
+  <v-container>
     <v-col>
       <v-card class="card">
         <transition name="slide-fade">

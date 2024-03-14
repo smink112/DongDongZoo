@@ -1,10 +1,8 @@
 <template>
   <v-app>
-    <v-container>
-      <DefaultBar />
-      <DefaultView />
-      <Footer />
-    </v-container>
+    <DefaultBar />
+    <DefaultView />
+    <Footer />
   </v-app>
 </template>
 
