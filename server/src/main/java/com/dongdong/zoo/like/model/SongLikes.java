@@ -15,6 +15,12 @@ public class SongLikes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long songLikesId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "song_id")
+    private Long songId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonManagedReference
