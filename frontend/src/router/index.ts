@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import index from "@/pages/index.vue";
+import dongyoList from "@/pages/DongYoList.vue";
+import dongyoDetail from "@/pages/DongYoDetail.vue";
+
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
 import { useUserStore } from "@/store/app";
@@ -28,6 +31,22 @@ const routes = [
     component: SignUp,
     meta: {
       requiresAuth: true,
+    },
+  },
+  {
+    path: "/dongyoList",
+    name: "dongyoList",
+    component: dongyoList,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/dongyoDetail",
+    name: "dongyoDetail",
+    component: dongyoDetail,
+    meta: {
+      requiresAuth: false,
     },
   },
   {
