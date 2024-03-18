@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from "pinia";
-import { Authentication, User } from "@/types";
+import { Authentication, User, Dongyo } from "@/types";
 export const useAppStore = defineStore("app", {
   state: () => ({
     //
@@ -50,4 +50,27 @@ export const useUserStore = defineStore("user", {
       this.user = user;
     },
   },
+});
+
+export const DongyoStore = defineStore("dongyo",{
+  state: () => ({
+     dongyo: null as Dongyo,
+  }),
+  actions:{
+    async fetchDummyList() {
+      const dongyo = {
+        id : 1,
+        title: "퐁당퐁당",
+        content: "퐁당퐁당 돌을 던지자"
+      };
+      this.dongyo = dongyo;
+    },
+
+    async fetchList() {
+      const res = await fetch("https://localhost:3000/songs");
+
+      const dongyo = await res.json();
+      this.dongyo = dongyo;
+    },
+  }
 });
