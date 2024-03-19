@@ -4,9 +4,7 @@ import { ref } from "vue";
 import { useLoadingStore } from "@/store/loading";
 
 const loadingStore = useLoadingStore();
-setTimeout(() => {
-  loadingStore.contentLoaded();
-}, 3000);
+loadingStore.contentLoaded();
 </script>
 <template>
   <Main></Main>
