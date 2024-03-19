@@ -90,6 +90,8 @@ router.beforeEach((to, from, next) => {
       loadingStore.contentLoading();
       next();
     }
+  } else {
+    next();
   }
 });
 
