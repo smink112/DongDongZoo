@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, useRoute } from "vue-router";
 import index from "@/pages/index.vue";
 import dongyoList from "@/pages/DongYoList.vue";
 import dongyoDetail from "@/pages/DongYoDetail.vue";
@@ -8,6 +8,7 @@ import SignUp from "@/pages/SignUp.vue";
 import { useUserStore } from "@/store/app";
 import { useLoadingStore } from "@/store/loading";
 import { RouteRecordRaw } from "vue-router";
+
 const routes = [
   {
     path: "/",
@@ -30,7 +31,7 @@ const routes = [
     name: "signup",
     component: SignUp,
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
@@ -66,7 +67,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const loadingStore = useLoadingStore();
-  loadingStore.contentLoading();
+  const route = useRoute();
+
+  if (route.path === to.path) {
+    return;
+  }
 
   if (to.meta.requiresAuth !== undefined) {
     const userStore = useUserStore();
@@ -78,9 +83,11 @@ router.beforeEach((to, from, next) => {
           component: Login,
         });
       } else {
+        loadingStore.contentLoading();
         next();
       }
     } else {
+      loadingStore.contentLoading();
       next();
     }
   }
