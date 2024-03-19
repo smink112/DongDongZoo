@@ -69,10 +69,6 @@ router.beforeEach((to, from, next) => {
   const loadingStore = useLoadingStore();
   const route = useRoute();
 
-  if (route.path === to.path) {
-    return;
-  }
-
   if (to.meta.requiresAuth !== undefined) {
     const userStore = useUserStore();
     if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -83,11 +79,9 @@ router.beforeEach((to, from, next) => {
           component: Login,
         });
       } else {
-        loadingStore.contentLoading();
         next();
       }
     } else {
-      loadingStore.contentLoading();
       next();
     }
   } else {
