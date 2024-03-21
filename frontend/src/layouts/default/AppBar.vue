@@ -5,7 +5,7 @@ import { useUserStore } from "@/store/app";
 import Auth from "@/components/appbar/Auth.vue";
 import NotAuth from "@/components/appbar/NotAuth.vue";
 const store = useUserStore();
-store.fetchDummyUser();
+// store.fetchDummyUser();
 
 const user = ref(store.user);
 </script>
@@ -21,7 +21,7 @@ const user = ref(store.user);
       />
     </RouterLink>
     <v-spacer />
-    <RouterLink to="/">
+    <RouterLink to="/dongyoList">
       <v-btn text="서비스 사용하기"></v-btn>
     </RouterLink>
     <Auth v-if="user" :user="user" />
