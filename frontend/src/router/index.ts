@@ -31,7 +31,7 @@ const routes = [
     name: "signup",
     component: SignUp,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -73,11 +73,7 @@ router.beforeEach((to, from, next) => {
     const userStore = useUserStore();
     if (to.matched.some((record) => record.meta.requiresAuth)) {
       if (userStore.user == null) {
-        next({
-          path: "/login",
-          query: { redirect: to.fullPath },
-          component: Login,
-        });
+        next("/login");
       } else {
         next();
       }
