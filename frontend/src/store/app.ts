@@ -61,7 +61,7 @@ export const DongyoStore = defineStore("dongyo", {
       const dongyo = {
         id: 1,
         title: "퐁당퐁당",
-        content: "퐁당퐁당 돌을 던지자",
+        content: "퐁당퐁당 돌을 던지자 누나 몰래 던져",
       };
       this.dongyo = dongyo;
     },

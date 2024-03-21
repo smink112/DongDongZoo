@@ -12,7 +12,7 @@ console.log(dongyo);
 
 <template>
   <div>
-    <v-card class="dongyocard" @click="">
+    <v-card class="dongyocard" @click="$router.push('/dongyoDetail')">
       <v-img class="white--text" height="200px" src="@/assets/dongyo1.png">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -24,10 +24,10 @@ console.log(dongyo);
       </v-img>
       <v-card-title>
         <div>
-          <span class="grey--text"> {{ dongyo?.title }} </span><br />
+          <span class="grey--text"> {{ dongyo.title }} </span><br />
           <span class="dongyo_content"
             ><div></div>
-            {{ dongyo?.content }}</span
+            {{ dongyo.content }}</span
           ><br />
           <span>Last updated 5mins ago</span>
         </div>
