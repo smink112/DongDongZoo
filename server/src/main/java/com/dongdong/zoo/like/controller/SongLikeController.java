@@ -24,6 +24,7 @@ public class SongLikeController extends LikeController<SongLikeService> {
     @Override
     public ResponseEntity<URI> createLike(@Valid @RequestBody LikeRequest likeRequest){
         if (likeRequest.checkSongId(likeRequest)){
+            System.out.println("likeRequest - songId : " + likeRequest.getSongId() + " userId : " + likeRequest.getUserId());
             likeService.createLike(likeRequest);
         }
         return ResponseEntity.ok().build();

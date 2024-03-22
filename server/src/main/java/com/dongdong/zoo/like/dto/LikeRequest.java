@@ -8,9 +8,12 @@ import lombok.Getter;
 @Builder
 @Getter
 public class LikeRequest {
+
     @NotNull
     Long userId;
+
     Long songId;
+
     Long boardId;
 
     @AssertTrue

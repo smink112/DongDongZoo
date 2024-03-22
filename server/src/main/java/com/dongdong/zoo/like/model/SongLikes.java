@@ -12,7 +12,7 @@ import lombok.*;
 @AttributeOverride(name = "id", column = @Column(name = "song_likes_id"))
 public class SongLikes extends Like{
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
     @JsonManagedReference
     @Setter

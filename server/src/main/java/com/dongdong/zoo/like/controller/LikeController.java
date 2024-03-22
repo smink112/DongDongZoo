@@ -30,4 +30,10 @@ public abstract class LikeController<T extends LikeService<?, ?>> {
 //        return ResponseEntity.noContent().build();
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}/{userId}")
+    public ResponseEntity<Boolean> getLikeByUser(@NotNull @PathVariable Long id, @NotNull @PathVariable Long userId){
+        boolean doesUserLike = likeService.checkUserLike(id, userId);
+        return ResponseEntity.ok(doesUserLike);
+    }
 }
