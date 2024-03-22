@@ -28,7 +28,6 @@ public abstract class LikeService<T, R extends LikeRepository<?>> {
         return createLikeObject(likeRequest, user);
     }
 
-    @Transactional
     public abstract void deleteLike(Long id, Long userId);
 
     public abstract boolean checkUserLike(Long id, Long userId);

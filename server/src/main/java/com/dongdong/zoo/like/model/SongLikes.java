@@ -15,7 +15,6 @@ public class SongLikes extends Like{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
     @JsonManagedReference
-    @Setter
     private Song song;
 
     @Builder

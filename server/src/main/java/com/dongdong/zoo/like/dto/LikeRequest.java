@@ -14,10 +14,10 @@ public class LikeRequest {
 
     Long songId;
 
-    Long boardId;
+    Long storyId;
 
     @AssertTrue
     public boolean checkSongId(LikeRequest likeRequest) {return likeRequest.songId != null;}
     @AssertTrue
-    public boolean checkBoardId(LikeRequest likeRequest) {return likeRequest.boardId != null;}
+    public boolean checkStoryId(LikeRequest likeRequest) {return likeRequest.storyId != null;}
 }
