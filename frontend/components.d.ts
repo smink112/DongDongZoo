@@ -9,12 +9,15 @@ declare module 'vue' {
   export interface GlobalComponents {
     Auth: typeof import('./src/components/appbar/Auth.vue')['default']
     DongyoCard: typeof import('./src/components/dongyo/DongyoCard.vue')['default']
-    DongyoDetail: typeof import('./src/components/dongyo/DongyoDetail.vue')['default']
+    DongyoDetail: typeof import('./src/components/dongyo/dongyoDetail.vue')['default']
     List: typeof import('./src/components/dongyo/List.vue')['default']
     LoadingView: typeof import('./src/components/common/LoadingView.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']
     NotAuth: typeof import('./src/components/appbar/NotAuth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SongCard: typeof import('./src/components/song/SongCard.vue')['default']
+    SongDetail: typeof import('./src/components/song/SongDetail.vue')['default']
+    SongList: typeof import('./src/components/song/SongList.vue')['default']
   }
 }
