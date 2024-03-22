@@ -3,11 +3,11 @@ import StoryBook from "./StoryBook.vue";
 const message =
   "퐁당 퐁당 돌을 던지자 누나 몰래 돌을 던지자 냇물아 퍼져라 멀리멀리 퍼져라 건너편에 앉아서 나물을 씻는 우리누나 손등을 간질어 주어라";
 
-const isBlue = false;
+let isBlue = false;
 
 function toggleThumb() {
-  this.isBlue = !this.isBlue;
-  console.log(this.isBlue);
+  isBlue = !isBlue;
+  console.log(isBlue);
 }
 </script>
 

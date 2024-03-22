@@ -9,8 +9,8 @@ export interface NullUser {
 }
 export interface Song {
   id: number;
-  title: string;
-  content: string;
+  title: string | null;
+  content: string | null;
 }
 type User = NullUser | null;
 type RefUser = User | Ref;

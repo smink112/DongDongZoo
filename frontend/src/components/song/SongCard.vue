@@ -24,10 +24,10 @@ console.log(song);
       </v-img>
       <v-card-title>
         <div>
-          <span class="grey--text"> {{ song.title }} </span><br />
+          <span class="grey--text"> {{ song!.title }} </span><br />
           <span class="song_content"
             ><div></div>
-            {{ song.content }}</span
+            {{ song!.content }}</span
           ><br />
           <span>Last updated 5mins ago</span>
         </div>

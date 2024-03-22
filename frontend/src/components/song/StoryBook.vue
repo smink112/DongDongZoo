@@ -3,15 +3,15 @@ import { onMounted, onUnmounted } from "vue";
 
 let currentPage = 1;
 const pageNumber = 6;
-let interval: number;
+let interval: any;
 onMounted(() => {
-  $("#book").turn({
+  (<any>$("#book")).turn({
     gradients: true,
     acceleration: true,
     pages: pageNumber,
   });
   interval = setInterval(() => {
-    $("#book").turn("page", currentPage++);
+    (<any>$("#book")).turn("page", currentPage++);
   }, 1500);
 });
 onUnmounted(() => {

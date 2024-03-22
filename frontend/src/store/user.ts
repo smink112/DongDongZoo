@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { Authentication, User, Dongyo } from "@/types";
+import { Authentication, User } from "@/types";
 import { requestLogin } from "@/api/user";
 export const useUserStore = defineStore("user", () => {
   const user = ref<User>(null);
