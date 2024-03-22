@@ -21,7 +21,7 @@ const user = ref(store.user);
       />
     </RouterLink>
     <v-spacer />
-    <RouterLink to="/dongyoList">
+    <RouterLink to="/songList">
       <v-btn text="서비스 사용하기"></v-btn>
     </RouterLink>
     <Auth v-if="user" :user="user" />
