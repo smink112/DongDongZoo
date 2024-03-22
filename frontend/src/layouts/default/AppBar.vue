@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 import { ref, watch, onMounted } from "vue";
-import { useUserStore } from "@/store/app";
+import { useUserStore } from "@/store/user";
 import Auth from "@/components/appbar/Auth.vue";
 import NotAuth from "@/components/appbar/NotAuth.vue";
 const store = useUserStore();
-// store.fetchDummyUser();
-
+store.fetchDummyUser();
+store.fetchUser();
 const user = ref(store.user);
 </script>
 <template>
