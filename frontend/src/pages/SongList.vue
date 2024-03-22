@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import List from "@/components/dongyo/List.vue";
+import SongList from "@/components/song/SongList.vue";
 </script>
 
 <template>
   <div>
-    <List />
+    <SongList />
   </div>
 </template>

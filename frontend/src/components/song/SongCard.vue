@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
-import { DongyoStore } from "@/store/app";
+import { SongStore } from "@/store/app";
 
-const store = DongyoStore();
+const store = SongStore();
 store.fetchDummyList();
 
-const dongyo = ref(store.dongyo);
+const song = ref(store.song);
 
-console.log(dongyo);
+console.log(song);
 </script>
 
 <template>
   <div>
-    <v-card class="dongyocard" @click="$router.push('/dongyoDetail')">
+    <v-card class="songcard" @click="$router.push('/songDetail')">
       <v-img class="white--text" height="200px" src="@/assets/dongyo1.png">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -24,10 +24,10 @@ console.log(dongyo);
       </v-img>
       <v-card-title>
         <div>
-          <span class="grey--text"> {{ dongyo.title }} </span><br />
-          <span class="dongyo_content"
+          <span class="grey--text"> {{ song.title }} </span><br />
+          <span class="song_content"
             ><div></div>
-            {{ dongyo.content }}</span
+            {{ song.content }}</span
           ><br />
           <span>Last updated 5mins ago</span>
         </div>
@@ -41,7 +41,7 @@ console.log(dongyo);
 </template>
 
 <style scoped>
-.dongyocard {
+.songcard {
   width: 300px;
   height: 300px;
   margin: 20px;
