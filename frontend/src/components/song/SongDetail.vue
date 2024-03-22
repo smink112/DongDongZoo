@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import StoryBook from "./StoryBook.vue";
 const message =
   "퐁당 퐁당 돌을 던지자 누나 몰래 돌을 던지자 냇물아 퍼져라 멀리멀리 퍼져라 건너편에 앉아서 나물을 씻는 우리누나 손등을 간질어 주어라";
 
@@ -47,6 +48,9 @@ function toggleThumb() {
     <v-btn size="large" rounded class="inner-btn"> 동요 미리듣기 </v-btn>
     <v-btn size="large" rounded class="inner-btn"> 동화 제작하기 </v-btn>
   </div>
+  <v-container>
+    <StoryBook />
+  </v-container>
 </template>
 
 <style>
