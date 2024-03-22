@@ -11,11 +11,11 @@ function toggleThumb() {
 </script>
 
 <template>
-  <div class="dongyoTitle">
+  <div class="songTitle">
     <h1 style="">동요 제목</h1>
   </div>
   <div class="imgcontent">
-    <v-img class="leftcontent" src="@/assets/dongyo1.png"></v-img>
+    <v-img class="leftcontent" src="@/assets/song.png"></v-img>
     <div class="rightcontent">
       <h2>가사</h2>
       <textarea
@@ -43,7 +43,7 @@ function toggleThumb() {
       </div>
     </div>
   </div>
-  <div class="dongyobutton">
+  <div class="songbutton">
     <v-btn size="large" rounded class="inner-btn"> 동요 미리듣기 </v-btn>
     <v-btn size="large" rounded class="inner-btn"> 동화 제작하기 </v-btn>
   </div>
@@ -64,7 +64,7 @@ function toggleThumb() {
   height: 300px;
 }
 
-.dongyoTitle {
+.songTitle {
   text-align: center;
 }
 
@@ -72,7 +72,7 @@ function toggleThumb() {
   display: flex;
 }
 
-.dongyobutton {
+.songbutton {
   display: flex;
   justify-content: center;
   margin-top: 20px;

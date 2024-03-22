@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DongyoDetail from "@/components/dongyo/DongyoDetail.vue";
+import DongyoDetail from "@/components/song/SongDetail.vue";
 </script>
 
 <template>

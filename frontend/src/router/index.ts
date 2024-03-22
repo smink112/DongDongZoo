@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, useRoute } from "vue-router";
 import index from "@/pages/index.vue";
-import dongyoList from "@/pages/DongYoList.vue";
-import dongyoDetail from "@/pages/DongYoDetail.vue";
+import SongList from "@/pages/SongList.vue";
+import SongDetail from "@/pages/SongDetail.vue";
 
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
@@ -35,17 +35,17 @@ const routes = [
     },
   },
   {
-    path: "/dongyoList",
-    name: "dongyoList",
-    component: dongyoList,
+    path: "/songList",
+    name: "songList",
+    component: SongList,
     meta: {
       requiresAuth: false,
     },
   },
   {
-    path: "/dongyoDetail",
-    name: "dongyoDetail",
-    component: dongyoDetail,
+    path: "/songDetail",
+    name: "songDetail",
+    component: SongDetail,
     meta: {
       requiresAuth: false,
     },
