@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, toRefs, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const showBanner1 = ref(false);
-const showText1 = ref(false);
 const showBanner2 = ref(false);
-const showText2 = ref(false);
 const showBanner3 = ref(false);
-const showText3 = ref(false);
-const showButtton = ref(false);
 
 const doScroll = (event: any) => {
   const el = event.target.documentElement;
@@ -15,18 +11,10 @@ const doScroll = (event: any) => {
   console.log(scrollTop);
   if (scrollTop > 100 && !showBanner1.value) {
     showBanner1.value = true;
-  } else if (scrollTop > 50 && !showText1.value) {
-    showText1.value = true;
   } else if (scrollTop > 350 && !showBanner2.value) {
     showBanner2.value = true;
-  } else if (scrollTop > 500 && !showText2.value) {
-    showText2.value = true;
   } else if (scrollTop > 900 && !showBanner3.value) {
     showBanner3.value = true;
-  } else if (scrollTop > 900 && !showText3.value) {
-    showText3.value = true;
-  } else if (scrollTop > 1800 && !showButtton.value) {
-    showButtton.value = true;
   }
 };
 
@@ -41,73 +29,82 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div style="flex-direction: column; display: flex; height: 1500px">
-    <transition name="slide-fade">
-      <div v-if="showBanner1" style="position: relative; opacity: 70%">
-        <v-img src="@/assets/character_1.png">
-          <transition name="slide-fade">
-            <h1 v-if="showText1" class="inner-text">
-              동동주 서비스를 활용하여 <br />동요를 동화로 만들어 보세요!
-            </h1>
-          </transition>
-        </v-img>
-      </div>
-    </transition>
-    <transition name="slide-fade">
-      <div v-if="showBanner2" style="position: relative; opacity: 70%">
-        <v-img src="@/assets/character_2.png">
-          <transition name="slide-fade">
-            <h1 v-if="showText2" class="inner-text">
-              동화를 보며 아이들의 <br />상상력을 자극시켜봐요!
-            </h1>
-          </transition>
-        </v-img>
-      </div>
-    </transition>
-    <transition name="slide-fade">
-      <div v-if="showBanner3" style="position: relative; opacity: 70%">
-        <v-img src="@/assets/character_3.png">
-          <transition name="slide-fade">
-            <h1 v-if="showText3" class="inner-text">
-              지금바로 서비스를 이용하세요!
-            </h1>
-          </transition>
-          <transition name="slide-fade">
-            <v-btn rounded class="inner-btn" v-if="showButtton">
+  <v-container>
+    <v-col>
+      <v-card class="card">
+        <transition name="slide-fade">
+          <v-row v-show="showBanner1">
+            <v-img class="img" src="@/assets/character_1.png">
+              <h1 class="inner-text-h1">
+                동동주 서비스를 활용하여 <br />동요를 동화로 만들어 보세요!
+              </h1>
+              <h3 class="inner-text-h3">
+                동동주의 서비스는 생성형 AI를 기반으로 동요를 동화로
+                변환해줍니다 ~ 어쩌구
+              </h3>
+            </v-img>
+          </v-row>
+        </transition>
+      </v-card>
+      <v-card class="card">
+        <transition name="slide-fade">
+          <v-row v-show="showBanner2">
+            <v-img class="img" src="@/assets/character_2.png">
+              <h1 class="inner-text-h1">
+                동화를 보며 아이들의 <br />상상력을 자극시켜봐요!
+              </h1>
+              <h3 class="inner-text-h3">
+                원하는 키워드를 이용하여 동화를 생성하고, <br />모든 사고능력의
+                근간이 되는 상상력을 자극시켜 교육적 효과를 얻을 수 있어요!
+              </h3>
+            </v-img>
+          </v-row>
+        </transition>
+      </v-card>
+      <v-card class="card">
+        <transition name="slide-fade">
+          <v-row v-show="showBanner3">
+            <v-img class="img" src="@/assets/character_3.png">
+              <h1 class="inner-text-h1">지금바로 서비스를 이용하세요!</h1>
+            </v-img>
+            <v-btn size="large" rounded class="inner-btn">
               서비스 이용하기
             </v-btn>
-          </transition>
-        </v-img>
-      </div>
-    </transition>
-  </div>
+          </v-row>
+        </transition>
+      </v-card>
+    </v-col>
+  </v-container>
 </template>
 
 <style scoped>
-.inner-text {
-  color: white;
+.img {
+  border-radius: 50px;
+  height: 100%;
+  opacity: 70%;
+}
+.card {
+  margin-top: 50px;
+  border-radius: 50px;
+  height: 500px;
+}
+.inner-text-h1 {
+  margin-top: 100px;
   margin-left: 100px;
-  margin-top: 120px;
+  color: white;
   font-size: 48px;
+}
+.inner-text-h3 {
+  margin-top: 100px;
+  margin-left: 100px;
+  color: white;
+  font-size: 24px;
 }
 .inner-btn {
   width: 300px;
   height: 200px;
   position: absolute;
-  top: 50%;
   margin-left: 100px;
-}
-.slide-fade-enter-active {
-  transition: all 0.8s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(20px);
-  opacity: 0;
+  margin-top: 300px;
 }
 </style>
