@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import StoryBook from "./StoryBook.vue";
+import { ref } from "vue";
+
 const message =
   "퐁당 퐁당 돌을 던지자 누나 몰래 돌을 던지자 냇물아 퍼져라 멀리멀리 퍼져라 건너편에 앉아서 나물을 씻는 우리누나 손등을 간질어 주어라";
 
@@ -7,8 +9,9 @@ let isBlue = false;
 
 function toggleThumb() {
   isBlue = !isBlue;
-  console.log(isBlue);
 }
+
+const show = ref(false);
 </script>
 
 <template>
@@ -24,23 +27,35 @@ function toggleThumb() {
         v-model="message"
         placeholder="여러줄을 입력해보세요"
       ></textarea>
-      <div>
-        <v-btn
-          class="thumbupblue"
-          :class="{ blue: isBlue }"
-          icon="mdi-thumb-up"
-          variant="text"
-        ></v-btn>
-        <v-btn
-          @click="toggleThumb()"
-          class="thumbupwhite"
-          color="white-2"
-          icon="mdi-thumb-up"
-          variant="text"
-          :class="{ blue: !isBlue }"
-        ></v-btn>
-        <div :class="{ blue: isBlue }">{{ isBlue }}</div>
-        <h2>좋아요</h2>
+      <div class="likeHeart">
+        <Transition>
+          <button class="likebtn" @click="show = !show">
+            <!-- 좋아요 눌렀을 경우 -->
+            <p v-if="show">
+              <v-btn
+                @click="toggleThumb()"
+                class="white-background"
+                color="blue-2"
+                icon="mdi-heart"
+                variant="text"
+                :class="{ blue: !isBlue }"
+              ></v-btn>
+            </p>
+            <!-- 좋아요 안눌렀을때 -->
+            <p v-else>
+              <v-btn
+                @click="toggleThumb()"
+                class="thumbupwhite"
+                color="white-2"
+                icon="mdi-heart-outline"
+                variant="text"
+                :class="{ blue: !isBlue }"
+              ></v-btn>
+            </p>
+          </button>
+        </Transition>
+
+        <h2 class="liketext">좋아요</h2>
       </div>
     </div>
   </div>
@@ -95,5 +110,17 @@ function toggleThumb() {
 }
 .blue {
   color: skyblue;
+}
+
+.likeHeart {
+  display: flex;
+}
+
+.likebtn {
+}
+
+.liketext {
+  margin-top: 5px;
+  align-items: center;
 }
 </style>
