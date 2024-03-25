@@ -1,9 +1,4 @@
-<script setup lang="ts">
-import { useLoadingStore } from "@/store/loading";
-
-const loadingStore = useLoadingStore();
-loadingStore.contentLoaded();
-</script>
+<script setup lang="ts"></script>
 <template>
   <v-container class="container">
     <v-col cols="12" align="center" justify="center">
