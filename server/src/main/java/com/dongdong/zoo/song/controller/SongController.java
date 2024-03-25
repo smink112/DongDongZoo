@@ -4,6 +4,9 @@ import com.dongdong.zoo.song.dto.SongDetailResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
 import com.dongdong.zoo.song.model.Song;
 import com.dongdong.zoo.song.service.SongService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,8 +33,39 @@ public class SongController {
 
     // 동요 상세 조회
     @GetMapping("/{songId}")
-    public ResponseEntity<SongDetailResponse> getSongBySongId(@PathVariable Long songId){
+    public ResponseEntity<SongDetailResponse> getSongBySongId(@PathVariable Long songId, HttpServletRequest req, HttpServletResponse res){
+        viewCountUp(songId, req, res);
         return new ResponseEntity<>(songService.getSongBySongId(songId), HttpStatus.OK);
+    }
+
+    private void viewCountUp(Long id, HttpServletRequest req, HttpServletResponse res) {
+
+        Cookie oldCookie = null;
+
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("boardView")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if (oldCookie != null) {
+            if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+                songService.viewCountUp(id);
+                oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+                res.addCookie(oldCookie);
+            }
+        } else {
+            songService.viewCountUp(id);
+            Cookie newCookie = new Cookie("boardView","[" + id + "]");
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+            res.addCookie(newCookie);
+        }
     }
 
 }
