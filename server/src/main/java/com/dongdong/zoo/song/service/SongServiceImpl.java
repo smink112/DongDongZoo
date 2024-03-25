@@ -1,6 +1,7 @@
 package com.dongdong.zoo.song.service;
 
 import com.dongdong.zoo.song.dto.SongDetailResponse;
+import com.dongdong.zoo.song.dto.SongLikeCountResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
 import com.dongdong.zoo.song.model.Song;
 import com.dongdong.zoo.song.model.Lyrics;
@@ -70,6 +71,8 @@ public class SongServiceImpl implements SongService{
                 .map(Lyrics::getContent)
                 .collect(Collectors.toList());
 
+        SongLikeCountResponse likeCount = songRepository.findSongLikeCountBySongId(song.getSongId());
+
         return SongDetailResponse.builder()
                 .songId(song.getSongId())
                 .songName(song.getSongName())
@@ -78,6 +81,7 @@ public class SongServiceImpl implements SongService{
                 .beat(song.getBeat())
                 .views(song.getViews())
                 .lyricsList(lyricsList)
+                .LikeCount(likeCount.getLikeCount())
                 .build();
     }
 }

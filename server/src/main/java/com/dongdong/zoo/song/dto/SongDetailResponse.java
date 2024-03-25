@@ -27,4 +27,6 @@ public class SongDetailResponse {
     private Long views;
     // 가사
     private List<String> lyricsList;
+    // 좋아요 수
+    private Long LikeCount;
 }
