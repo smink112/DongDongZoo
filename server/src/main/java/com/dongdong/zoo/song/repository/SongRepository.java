@@ -1,5 +1,7 @@
 package com.dongdong.zoo.song.repository;
 
+import com.dongdong.zoo.song.dto.SongDetailResponse;
+import com.dongdong.zoo.song.dto.SongLikeCountResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
 import com.dongdong.zoo.song.model.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +23,11 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     @Query("SELECT s FROM Song s WHERE s.songId = :songId")
     Song findSongBySongId(Long songId);
+
+    @Query("SELECT new com.dongdong.zoo.song.dto.SongLikeCountResponse(s.songId, count(sl.id) as likeCount) " +
+            "FROM Song s LEFT JOIN SongLikes sl ON s.songId = sl.song.songId " +
+            "WHERE s.songId = :songId " +
+            "GROUP BY s.songId ")
+    SongLikeCountResponse findSongLikeCountBySongId(Long songId);
+
 }
