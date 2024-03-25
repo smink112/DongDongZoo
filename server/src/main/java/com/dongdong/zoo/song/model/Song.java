@@ -40,10 +40,8 @@ public class Song {
     @JsonManagedReference
     private List<Story> storyList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<SongLikes> songLikesList = new ArrayList<>();
-
-
+    public void viewCountUp(Song song){
+        song.views++;
+    }
 
 }
