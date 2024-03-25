@@ -15,4 +15,6 @@ public interface SongService {
     SongDetailResponse getSongBySongId(Long songId);
 
     Song findById(Long songId);
+
+    void viewCountUp(Long songId);
 }

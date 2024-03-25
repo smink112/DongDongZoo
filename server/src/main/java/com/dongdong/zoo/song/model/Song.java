@@ -40,4 +40,8 @@ public class Song {
     @JsonManagedReference
     private List<Story> storyList = new ArrayList<>();
 
+    public void viewCountUp(Song song){
+        song.views++;
+    }
+
 }

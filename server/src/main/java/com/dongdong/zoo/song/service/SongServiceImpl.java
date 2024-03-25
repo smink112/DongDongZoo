@@ -29,8 +29,9 @@ public class SongServiceImpl implements SongService{
     @Override
     @Transactional
     public List<SongListResponse> getSongsByLikesAndViews() {
+        return songRepository.findSongsByLikesAndViews();
 
-        return songRepository.findSongsByLikesAndViews().stream().map(this::getSongListResponse).collect(Collectors.toList());
+//        return songRepository.findSongsByLikesAndViews().stream().map(this::getSongListResponse).collect(Collectors.toList());
     }
 
     // 동요 상세 조회
@@ -46,6 +47,13 @@ public class SongServiceImpl implements SongService{
         return songRepository.findSongBySongId(songId);
     }
 
+
+    @Override
+    public void viewCountUp(Long songId){
+
+        Song song = findById(songId);
+        song.viewCountUp(song);
+    }
 
     private SongListResponse getSongListResponse(Song song) {
 
