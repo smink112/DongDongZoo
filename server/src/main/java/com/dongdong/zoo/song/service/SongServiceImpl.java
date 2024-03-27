@@ -1,10 +1,14 @@
 package com.dongdong.zoo.song.service;
 
 import com.dongdong.zoo.song.dto.SongDetailResponse;
+import com.dongdong.zoo.song.dto.SongLikeCountResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
 import com.dongdong.zoo.song.model.Song;
 import com.dongdong.zoo.song.model.Lyrics;
+import com.dongdong.zoo.song.model.SongKeyword;
 import com.dongdong.zoo.song.repository.SongRepository;
+import com.dongdong.zoo.user.repository.UserRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +19,11 @@ import java.util.stream.Collectors;
 public class SongServiceImpl implements SongService{
 
     private final SongRepository songRepository;
+    private final UserRepository userRepository;
 
-    public SongServiceImpl(SongRepository songRepository) {
+    public SongServiceImpl(SongRepository songRepository, UserRepository userRepository) {
         this.songRepository = songRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -25,8 +31,9 @@ public class SongServiceImpl implements SongService{
     @Override
     @Transactional
     public List<SongListResponse> getSongsByLikesAndViews() {
+        return songRepository.findSongsByLikesAndViews();
 
-        return songRepository.findSongsByLikesAndViews().stream().map(this::getSongListResponse).collect(Collectors.toList());
+//        return songRepository.findSongsByLikesAndViews().stream().map(this::getSongListResponse).collect(Collectors.toList());
     }
 
     // 동요 상세 조회
@@ -37,6 +44,18 @@ public class SongServiceImpl implements SongService{
         return getSongResponse(song);
     }
 
+    @Override
+    public Song findById(Long songId){
+        return songRepository.findSongBySongId(songId);
+    }
+
+
+    @Override
+    public void viewCountUp(Long songId){
+
+        Song song = findById(songId);
+        song.viewCountUp(song);
+    }
 
     private SongListResponse getSongListResponse(Song song) {
 
@@ -53,6 +72,12 @@ public class SongServiceImpl implements SongService{
                 .map(Lyrics::getContent)
                 .collect(Collectors.toList());
 
+        SongLikeCountResponse likeCount = songRepository.findSongLikeCountBySongId(song.getSongId());
+
+        List<String> songKeywordList = song.getSongKeywordList().stream()
+                .map(SongKeyword::getSongKeyword)
+                .collect(Collectors.toList());
+
         return SongDetailResponse.builder()
                 .songId(song.getSongId())
                 .songName(song.getSongName())
@@ -61,6 +86,8 @@ public class SongServiceImpl implements SongService{
                 .beat(song.getBeat())
                 .views(song.getViews())
                 .lyricsList(lyricsList)
+                .LikeCount(likeCount.getLikeCount())
+                .songKeywordList(songKeywordList)
                 .build();
     }
 }
