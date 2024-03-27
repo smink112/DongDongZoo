@@ -5,10 +5,13 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module "vue" {
+declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"];
-    RouterLink: typeof import("vue-router")["RouterLink"];
-    RouterView: typeof import("vue-router")["RouterView"];
+    Auth: typeof import('./src/components/appbar/Auth.vue')['default']
+    Authenticated: typeof import('./src/components/appbar/Authenticated.vue')['default']
+    Main: typeof import('./src/components/main/Main.vue')['default']
+    NotAuth: typeof import('./src/components/appbar/NotAuth.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
   }
 }
