@@ -29,4 +29,6 @@ public class SongDetailResponse {
     private List<String> lyricsList;
     // 좋아요 수
     private Long LikeCount;
+    // 노래 생성 키워드
+    private List<String> songKeywordList;
 }
