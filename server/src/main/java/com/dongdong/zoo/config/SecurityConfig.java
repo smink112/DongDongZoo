@@ -49,17 +49,17 @@ public class SecurityConfig {
 			.build();
 	}
 
-	@Bean
+//	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
 		return new TokenAuthenticationFilter(tokenHandler, tokenManagementService, tokenAuthenticationFilterIgnoredPatterns());
 	}
 
-	@Bean
+//	@Bean
 	public TokenIssueFilter tokenIssueFilter() {
 		return new TokenIssueFilter(tokenHandler, tokenManagementService, tokenIssueFilterPatterns());
 	}
 
-	@Bean
+//	@Bean
 	public TokenWithdrawalFilter tokenWithdrawalFilter() {
 		return new TokenWithdrawalFilter(tokenHandler, tokenManagementService, tokenWithdrawalFilterPatterns());
 	}
