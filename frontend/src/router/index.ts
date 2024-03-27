@@ -6,7 +6,6 @@ import SongDetail from "@/pages/SongDetail.vue";
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
 import { useUserStore } from "@/store/app";
-import { useLoadingStore } from "@/store/loading";
 import { RouteRecordRaw } from "vue-router";
 
 const routes = [
@@ -66,7 +65,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const loadingStore = useLoadingStore();
   const route = useRoute();
 
   if (to.meta.requiresAuth !== undefined) {

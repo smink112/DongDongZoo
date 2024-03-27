@@ -11,6 +11,7 @@ onMounted(() => {
     pages: pageNumber,
   });
   interval = setInterval(() => {
+    if (currentPage === pageNumber) clearInterval(interval);
     (<any>$("#book")).turn("page", currentPage++);
   }, 1500);
 });

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
 import { SongStore } from "@/store/app";
+import { useStoryStore } from "@/store/story";
+const storyStore = useStoryStore();
+
+storyStore.getStories(
+  (res) => {
+    console.log(res.data);
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 
 const store = SongStore();
 store.fetchDummyList();
