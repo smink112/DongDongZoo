@@ -1,5 +1,25 @@
 <script setup lang="ts">
 import SongCard from "./SongCard.vue";
+import { ref, onMounted } from "vue";
+import { useSongStore } from "@/store/song";
+import { HttpStatusCode } from "axios";
+import { RefSong } from "@/types";
+
+const songStore = useSongStore();
+
+const songList = ref<RefSong[]>(null);
+onMounted(() => {
+  songStore.getSongs(
+    (res) => {
+      if (res.status == HttpStatusCode.Ok) {
+        songList.value = res.data;
+      }
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+});
 </script>
 
 <template>
@@ -9,9 +29,9 @@ import SongCard from "./SongCard.vue";
 
   <v-container class="list">
     <div class="songlist">
-      <a v-for="song in 10">
+      <a v-for="song in songList">
         <v-flex xs12 sm6 offset-sm3>
-          <SongCard></SongCard>
+          <SongCard :song="song"></SongCard>
         </v-flex>
       </a>
     </div>

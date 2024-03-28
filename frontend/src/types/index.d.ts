@@ -18,10 +18,3 @@ export interface Song {
 type User = NullUser | null;
 type RefUser = User | Ref;
 type RefSong = Song | null;
-
-// import jQuery from "jquery";
-
-// export interface JQueryImpl extends jQuery {
-//   turn(options?: any): JQuery;
-//   turn(method: any, options?: any): JQuery;
-// }
