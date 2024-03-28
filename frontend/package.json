@@ -16,6 +16,7 @@
     "@mdi/font": "7.0.96",
     "axios": "^1.6.8",
     "core-js": "^3.34.0",
+    "jquery": "^3.7.1",
     "pinia-plugin-persist": "^1.0.0",
     "pinia-plugin-persistedstate": "^3.2.1",
     "roboto-fontface": "*",
