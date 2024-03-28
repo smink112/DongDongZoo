@@ -91,7 +91,6 @@ public class SongCreateStory {
     }
 
     private static URL createImgURL(String prompt, String negativePrompt) throws IOException {
-        BufferedImage img = ImageIO.read(new File("C:\\Users\\SSAFY\\Desktop\\특화\\testImage\\test.png"));
 
         // 이미지 생성하기 REST API 호출
         String response = t2i(prompt, negativePrompt);
