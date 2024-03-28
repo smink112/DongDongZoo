@@ -8,7 +8,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <router-link
+  <RouterLink
+    class="router-link"
     :to="{ name: 'songDetail', params: { songId: props.song.songId } }"
   >
     <v-card class="songcard">
@@ -36,7 +37,7 @@ const props = defineProps<{
       </v-row>
       <br />
     </v-card>
-  </router-link>
+  </RouterLink>
 </template>
 
 <style scoped>
