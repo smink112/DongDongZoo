@@ -8,10 +8,13 @@ export interface NullUser {
   profile: string;
 }
 export interface Song {
-  id: number;
-  title: string | null;
-  content: string | null;
+  songId: number;
+  songName: string | null;
+  songImageUrl: string | null;
+  views: number;
+  likeCount: number;
 }
+
 type User = NullUser | null;
 type RefUser = User | Ref;
 type RefSong = Song | null;

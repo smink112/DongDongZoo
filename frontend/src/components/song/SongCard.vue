@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
-import { SongStore } from "@/store/app";
+import { SongStore } from "@/store/song";
 import { useStoryStore } from "@/store/story";
 const storyStore = useStoryStore();
 
@@ -15,10 +15,10 @@ storyStore.getStories(
 
 const store = SongStore();
 store.fetchDummyList();
+// store.fetchSongs();
 
 const song = ref(store.song);
 
-console.log(song);
 </script>
 
 <template>
@@ -35,12 +35,15 @@ console.log(song);
       </v-img>
       <v-card-title>
         <div>
-          <span class="grey--text"> {{ song!.title }} </span><br />
+          <span class="grey--text"> {{ song!.songName }} </span><br />
           <span class="song_content"
             ><div></div>
-            {{ song!.content }}</span
+            {{ song!.songImageUrl }}</span
           ><br />
-          <span>Last updated 5mins ago</span>
+          <span
+            ><v-icon class="hearticon">mdi-heart</v-icon>
+            {{ song!.likeCount }}</span
+          >
         </div>
       </v-card-title>
       <!-- <v-card-actions>
@@ -56,5 +59,8 @@ console.log(song);
   width: 300px;
   height: 300px;
   margin: 20px;
+}
+
+.hearticon {
 }
 </style>
