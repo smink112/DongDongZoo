@@ -1,37 +1,13 @@
 import { defineStore } from "pinia";
-import { Authentication, User, Song, RefSong } from "@/types";
-import { requestGetSongs } from "@/api/song";
-import { ref } from "vue";
+import { requestGetSong, requestGetSongs } from "@/api/song";
 
-export const SongStore = defineStore("song", () => {
-  const song = ref<Song>(); // null처리 해야하는지? 체크
-
-  const fetchDummyList = async () => {
-    const DummySong = {
-      songId: 1,
-      songName: "퐁당퐁당",
-      songImageUrl: "사진 url이요",
-      views: 152,
-      likeCount: 0,
-    };
-
-    song.value = DummySong;
+export const useSongStore = defineStore("song", () => {
+  const getSong = (id: number, success: any, error: any) => {
+    requestGetSong(id, success, error);
+  };
+  const getSongs = (success: any, error: any) => {
+    requestGetSongs(success, error);
   };
 
-  const fetchSongs = async (song: RefSong) => {
-    requestGetSongs(
-      (res: any) => {
-        // process song data
-        song.value = res;
-      },
-      (error: any) => {
-        // process error
-      }
-    );
-  };
-  return {
-    fetchDummyList,
-    fetchSongs,
-    song,
-  };
+  return { getSong, getSongs };
 });

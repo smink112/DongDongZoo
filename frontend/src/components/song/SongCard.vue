@@ -1,29 +1,17 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
-import { SongStore } from "@/store/song";
-import { useStoryStore } from "@/store/story";
-const storyStore = useStoryStore();
-
-storyStore.getStories(
-  (res) => {
-    console.log(res.data);
-  },
-  (error) => {
-    console.log(error);
-  }
-);
-
-const store = SongStore();
-store.fetchDummyList();
-// store.fetchSongs();
-
-const song = ref(store.song);
-
+import { ref, defineProps } from "vue";
+import { RouterLink } from "vue-router";
+import { RefSong } from "@/types";
+const props = defineProps<{
+  song: RefSong;
+}>();
 </script>
 
 <template>
-  <div>
-    <v-card class="songcard" @click="$router.push('/songDetail')">
+  <router-link
+    :to="{ name: 'songDetail', params: { songId: props.song.songId } }"
+  >
+    <v-card class="songcard">
       <v-img class="white--text" height="200px" src="@/assets/song.png">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -33,25 +21,22 @@ const song = ref(store.song);
           </v-layout>
         </v-container>
       </v-img>
-      <v-card-title>
-        <div>
-          <span class="grey--text"> {{ song!.songName }} </span><br />
-          <span class="song_content"
-            ><div></div>
-            {{ song!.songImageUrl }}</span
-          ><br />
-          <span
-            ><v-icon class="hearticon">mdi-heart</v-icon>
-            {{ song!.likeCount }}</span
-          >
-        </div>
-      </v-card-title>
-      <!-- <v-card-actions>
-                  <v-btn flat color="orange">Share</v-btn>
-                  <v-btn flat color="orange">Explore</v-btn>
-                </v-card-actions> -->
+      <v-col cols="auto">
+        <h3>{{ props.song.songName }}</h3></v-col
+      >
+      <v-row cols="12" class="card-body">
+        <v-col cols="6">
+          <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%" />
+          {{ props.song.views }}
+        </v-col>
+        <v-col cols="6">
+          <font-awesome-icon :icon="['fas', 'heart']" style="opacity: 50%" />
+          {{ props.song.likeCount }}
+        </v-col>
+      </v-row>
+      <br />
     </v-card>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
@@ -59,6 +44,10 @@ const song = ref(store.song);
   width: 300px;
   height: 300px;
   margin: 20px;
+  border-radius: 24px;
+}
+.card-body {
+  margin: 12px;
 }
 
 .hearticon {
