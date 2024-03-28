@@ -16,7 +16,11 @@ public class SongKeyword {
     @Column(name = "song_keyword_id")
     private Long songKeywordId;
 
+    @Column(name = "song_keyword")
     private String songKeyword;
+
+    @Column(name = "song_keyword_korean")
+    private String songKeywordKorean;
 
     @Column(name = "song_id", insertable = false, updatable = false)
     private Long songId;

@@ -31,4 +31,6 @@ public class SongDetailResponse {
     private Long LikeCount;
     // 노래 생성 키워드
     private List<String> songKeywordList;
+    // 노래 생성 키워드 한글
+    private List<String> songKeywordKoreanList;
 }
