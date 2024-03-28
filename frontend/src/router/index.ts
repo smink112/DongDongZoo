@@ -42,7 +42,7 @@ const routes = [
     },
   },
   {
-    path: "/songDetail",
+    path: "/songDetail/:songId",
     name: "songDetail",
     component: SongDetail,
     meta: {
