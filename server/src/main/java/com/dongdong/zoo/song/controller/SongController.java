@@ -2,7 +2,8 @@ package com.dongdong.zoo.song.controller;
 
 import com.dongdong.zoo.song.dto.SongDetailResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
-import com.dongdong.zoo.song.model.Song;
+import com.dongdong.zoo.song.dto.StoryImageResponse;
+import com.dongdong.zoo.song.model.Lyrics;
 import com.dongdong.zoo.song.service.SongService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +37,11 @@ public class SongController {
     public ResponseEntity<SongDetailResponse> getSongBySongId(@PathVariable Long songId, HttpServletRequest req, HttpServletResponse res){
         viewCountUp(songId, req, res);
         return new ResponseEntity<>(songService.getSongBySongId(songId), HttpStatus.OK);
+    }
+
+    @GetMapping("/create/{songId}")
+    public ResponseEntity<List<StoryImageResponse>>getStoryImages(@PathVariable Long songId, @NotNull String tag) {
+        return new ResponseEntity<>(songService.getStoryImages(songId, tag), HttpStatus.OK);
     }
 
     private void viewCountUp(Long id, HttpServletRequest req, HttpServletResponse res) {
