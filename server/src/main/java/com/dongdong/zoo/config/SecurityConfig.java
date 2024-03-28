@@ -44,7 +44,7 @@ public class SecurityConfig {
 					.anyRequest().permitAll()
 			)
 			// .addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class)
-			// .addFilterAfter(tokenIssueFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후
+			.addFilterAfter(tokenIssueFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후
 			// .addFilterAfter(tokenWithdrawalFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후?
 			.build();
 	}
