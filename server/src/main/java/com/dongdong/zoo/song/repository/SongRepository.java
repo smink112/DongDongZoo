@@ -30,4 +30,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             "GROUP BY s.songId ")
     SongLikeCountResponse findSongLikeCountBySongId(Long songId);
 
+
+
 }
