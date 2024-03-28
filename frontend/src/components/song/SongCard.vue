@@ -43,15 +43,10 @@ const props = defineProps<{
 
 <style scoped>
 .songcard {
-  width: 300px;
   height: 300px;
-  margin: 20px;
   border-radius: 24px;
 }
 .card-body {
   margin: 12px;
-}
-
-.hearticon {
 }
 </style>
