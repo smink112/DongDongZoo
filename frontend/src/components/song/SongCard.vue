@@ -9,6 +9,7 @@ const props = defineProps<{
 
 <template>
   <RouterLink
+    v-if="props.song"
     class="router-link"
     :to="{ name: 'songDetail', params: { songId: props.song.songId } }"
   >
