@@ -1,12 +1,13 @@
 package com.dongdong.zoo.song.service;
 
 import com.dongdong.zoo.song.dto.SongDetailResponse;
+import com.dongdong.zoo.song.dto.SongLikeCountResponse;
 import com.dongdong.zoo.song.dto.SongListResponse;
 import com.dongdong.zoo.song.model.Song;
 import com.dongdong.zoo.song.model.Lyrics;
+import com.dongdong.zoo.song.model.SongKeyword;
 import com.dongdong.zoo.song.repository.SongRepository;
 import com.dongdong.zoo.user.repository.UserRepository;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +71,16 @@ public class SongServiceImpl implements SongService{
                 .map(Lyrics::getContent)
                 .collect(Collectors.toList());
 
+        SongLikeCountResponse likeCount = songRepository.findSongLikeCountBySongId(song.getSongId());
+
+        List<String> songKeywordList = song.getSongKeywordList().stream()
+                .map(SongKeyword::getSongKeyword)
+                .collect(Collectors.toList());
+
+        List<String> songKeywordKoreanList = song.getSongKeywordList().stream()
+                .map(SongKeyword::getSongKeywordKorean)
+                .collect(Collectors.toList());
+
         return SongDetailResponse.builder()
                 .songId(song.getSongId())
                 .songName(song.getSongName())
@@ -78,6 +89,9 @@ public class SongServiceImpl implements SongService{
                 .beat(song.getBeat())
                 .views(song.getViews())
                 .lyricsList(lyricsList)
+                .LikeCount(likeCount.getLikeCount())
+                .songKeywordList(songKeywordList)
+                .songKeywordKoreanList(songKeywordKoreanList)
                 .build();
     }
 }
