@@ -1,126 +1,182 @@
 <script setup lang="ts">
 import StoryBook from "./StoryBook.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useSongStore } from "@/store/song";
+import { useRoute, useRouter } from "vue-router";
+import { HttpStatusCode } from "axios";
+import { RefSongDetail } from "@/types";
+const songStore = useSongStore();
+const route = useRoute();
+const router = useRouter();
+const songId = route.params.songId;
+console.log(songId);
 
-const message =
-  "퐁당 퐁당 돌을 던지자 누나 몰래 돌을 던지자 냇물아 퍼져라 멀리멀리 퍼져라 건너편에 앉아서 나물을 씻는 우리누나 손등을 간질어 주어라";
+const songDetail = ref<RefSongDetail>(null);
 
-let isBlue = false;
+songStore.getSong(
+  songId as string,
+  (res) => {
+    if (res.status == HttpStatusCode.Ok) {
+      console.log(res.data);
+      songDetail.value = res.data;
+    }
+  },
+  (err) => {}
+);
 
-function toggleThumb() {
-  isBlue = !isBlue;
-}
+onMounted(() => {});
 
-const show = ref(false);
+const isBlue = ref(false);
+
+const toggleHeart = () => {
+  if (isBlue.value) {
+    songDetail.value.likeCount--;
+  } else {
+    songDetail.value.likeCount++;
+  }
+  isBlue.value = !isBlue.value;
+};
+
+const goBack = () => {
+  console.log("call goback");
+  router.go(-1);
+};
 </script>
 
 <template>
-  <div class="songTitle">
-    <h1 style="">동요 제목</h1>
-  </div>
-  <div class="imgcontent">
-    <v-img class="leftcontent" src="@/assets/song.png"></v-img>
-    <div class="rightcontent">
-      <h2>가사</h2>
-      <textarea
-        class="textarea"
-        v-model="message"
-        placeholder="여러줄을 입력해보세요"
-      ></textarea>
-      <div class="likeHeart">
-        <Transition>
-          <button class="likebtn" @click="show = !show">
-            <!-- 좋아요 눌렀을 경우 -->
-            <p v-if="show">
-              <v-btn
-                @click="toggleThumb()"
-                class="white-background"
-                color="blue-2"
-                icon="mdi-heart"
-                variant="text"
-                :class="{ blue: !isBlue }"
-              ></v-btn>
-            </p>
-            <!-- 좋아요 안눌렀을때 -->
-            <p v-else>
-              <v-btn
-                @click="toggleThumb()"
-                class="thumbupwhite"
-                color="white-2"
-                icon="mdi-heart-outline"
-                variant="text"
-                :class="{ blue: !isBlue }"
-              ></v-btn>
-            </p>
-          </button>
-        </Transition>
+  <v-row>
+    <v-container>
+      <v-row rows="12" class="ma-2 mt-2 pa-0">
+        <v-col rows="3"
+          ><v-btn @click="goBack" style="background: none" elevation="0"
+            ><h3>< 뒤로가기</h3></v-btn
+          ></v-col
+        >
+        <v-col></v-col>
+        <v-col></v-col>
+        <v-col></v-col>
+        <v-col></v-col>
+        <v-col rows="3" class="info-container">
+          <v-row rows="12" class="ms-3">
+            <v-col cols="auto" class="ma-0 mt-1">
+              <div
+                class="rounded-circle ma-0"
+                style="cursor: pointer"
+                @click="toggleHeart"
+              >
+                <font-awesome-icon
+                  v-if="isBlue"
+                  :icon="['fas', 'heart']"
+                  style="color: skyblue"
+                />
+                <font-awesome-icon
+                  v-else
+                  :icon="['fas', 'heart']"
+                  style="opacity: 50%; color: black"
+                />
+              </div>
+            </v-col>
+            <v-col cols="auto" class="ma-0">{{ songDetail?.likeCount }}</v-col>
+            <v-col cols="auto" class="ma-0 mt-1">
+              <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%"
+            /></v-col>
+            <v-col cols="auto" class="ma-0">{{ songDetail?.views }}</v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row rows="12" class="detail-container" style="height: 400px">
+        <v-row rows="5" class="pa-4 ma-0">
+          <v-img class="imgcontent" src="@/assets/song.png"></v-img>
+        </v-row>
+        <v-row rows="7">
+          <v-col cols="4" align="end">
+            <v-row>
+              <v-col cols="12" class="ma-2"></v-col>
+              <v-col cols="12" class="ma-1"><h2>동요 제목</h2></v-col>
+              <v-col cols="12" class="ma-1"><h2>동요 가사</h2></v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="7">
+            <v-row>
+              <v-col cols="12" class="ma-2"></v-col>
+              <v-col cols="12" class="info-container ma-2">
+                <h3>{{ songDetail?.songName }}</h3></v-col
+              >
+              <v-col
+                cols="auto"
+                class="ma-2 info-container"
+                style="width: 100%"
+              >
+                <div v-for="lyrics in songDetail?.lyricsList">
+                  {{ lyrics }}
+                </div>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-row>
+    </v-container>
+  </v-row>
+  <v-row>
+    <v-container align="center" justify="center">
+      <v-row rows="12" class="ma-0 mt-2 pa-0">
+        <v-row rows="12" class="detail-container" style="height: 250px">
+          <v-col cols="6">
+            <v-btn width="100%" height="100%" class="radius-12 song-preview">
+              <h1 class="mb-12" style="color: white; font-size: 48px">
+                동요 미리듣기
+              </h1></v-btn
+            >
+          </v-col>
 
-        <h2 class="liketext">좋아요</h2>
-      </div>
-    </div>
-  </div>
-  <div class="songbutton">
-    <v-btn size="large" rounded class="inner-btn"> 동요 미리듣기 </v-btn>
-    <v-btn size="large" rounded class="inner-btn"> 동화 제작하기 </v-btn>
-  </div>
+          <v-col cols="6" align="center" justify="center">
+            <v-btn width="100%" height="100%" class="radius-12 create-story">
+              <h1 class="mb-12" style="color: white; font-size: 48px">
+                동화 생성하기
+              </h1></v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-row>
+    </v-container>
+  </v-row>
   <v-container>
     <StoryBook />
   </v-container>
 </template>
 
 <style>
-.leftcontent {
-  width: 50%;
-  height: 200px;
+.info-container {
+  background-color: rgb(255, 215, 254);
+  border-radius: 16px;
 }
-
-.rightcontent {
-  width: 50%;
+.detail-container {
+  background-color: rgb(253, 253, 253);
+  border-radius: 24px;
+  margin-left: 24px;
 }
-
-.textarea {
-  width: 300px;
-  height: 300px;
-}
-
-.songTitle {
-  text-align: center;
+.radius-12 {
+  border-radius: 12px;
 }
 
 .imgcontent {
-  display: flex;
+  border-radius: 24px;
 }
 
-.songbutton {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+.song-preview {
+  background: url("@/assets/character_2.png");
+  background-size: cover;
+  transition: transform 0.3s ease;
 }
-
-.inner-btn {
-  background-color: skyblue;
-  margin: 30px;
+.song-preview:hover {
+  transform: scale(1.1); /* 호버 시 이미지를 1.1배 확대 */
 }
-
-.thumbupblue {
-  color: skyblue;
+.create-story {
+  background: url("../../assets/character_3.png");
+  background-size: cover;
+  transition: transform 0.3s ease;
 }
-
-.thumbupwhite {
-}
-.blue {
-  color: skyblue;
-}
-
-.likeHeart {
-  display: flex;
-}
-
-.likebtn {
-}
-
-.liketext {
-  margin-top: 5px;
-  align-items: center;
+.create-story:hover {
+  transform: scale(1.2); /* 호버 시 이미지를 1.1배 확대 */
 }
 </style>

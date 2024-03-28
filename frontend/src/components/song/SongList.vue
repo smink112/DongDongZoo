@@ -29,11 +29,9 @@ onMounted(() => {
 
   <v-container class="list">
     <div class="songlist">
-      <a v-for="song in songList">
-        <v-flex xs12 sm6 offset-sm3>
-          <SongCard :song="song"></SongCard>
-        </v-flex>
-      </a>
+      <p v-for="song in songList" style="margin: 24px">
+        <SongCard :song="song"></SongCard>
+      </p>
     </div>
   </v-container>
 </template>
@@ -50,7 +48,7 @@ onMounted(() => {
 .songlist {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .song_content {
@@ -58,11 +56,5 @@ onMounted(() => {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.songcard {
-  width: 300px;
-  height: 300px;
-  margin: 20px;
 }
 </style>
