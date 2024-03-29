@@ -2,22 +2,27 @@ package com.dongdong.zoo.like.model;
 
 import com.dongdong.zoo.story.model.Story;
 import com.dongdong.zoo.user.model.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AttributeOverride(name = "id", column = @Column(name = "story_likes_id"))
-public class StoryLikes extends Like{
+@NoArgsConstructor
+public class StoryLikes {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long storyLikesId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "story_id")
+    @JsonManagedReference
+    @Setter
     private Story story;
 
-    @Builder
-    protected StoryLikes(Story story, User user){
-        this.story = story;
-        super.user = user;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonManagedReference
+    @Setter
+    private User user;
 }

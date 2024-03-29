@@ -36,17 +36,14 @@ public class Song {
     @JsonManagedReference
     private List<Lyrics> lyricsList = new ArrayList<>();
 
-    // 동화 생성 키워드 리스트
-    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<SongKeyword> songKeywordList = new ArrayList<>();
-
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Story> storyList = new ArrayList<>();
 
-    public void viewCountUp(Song song){
-        song.views++;
-    }
+    @OneToMany(mappedBy = "song", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<SongLikes> songLikesList = new ArrayList<>();
+
+
 
 }

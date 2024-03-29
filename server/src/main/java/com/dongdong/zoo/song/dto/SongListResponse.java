@@ -23,7 +23,6 @@ public class SongListResponse {
 //    private Long beat;
     // 조회수
     private Long views;
-
-    // 좋아요 수
-    private Long likeCount;
+    // 가사
+//    private List<String> lyricsList;
 }
