@@ -14,7 +14,7 @@ const props = defineProps<{
     :to="{ name: 'songDetail', params: { songId: props.song.songId } }"
   >
     <v-card class="songcard">
-      <v-img class="white--text" height="200px" src="@/assets/song.png">
+      <v-img class="white--text" height="200px" :src="props.song.songImageUrl+'/1.png'">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
