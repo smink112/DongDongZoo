@@ -177,6 +177,6 @@ const goBack = () => {
   transition: transform 0.3s ease;
 }
 .create-story:hover {
-  transform: scale(1.2); /* 호버 시 이미지를 1.1배 확대 */
+  transform: scale(1.1); /* 호버 시 이미지를 1.1배 확대 */
 }
 </style>
