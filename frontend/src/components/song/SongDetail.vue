@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import StoryBook from "./StoryBook.vue";
+import StoryKeyword from "./StoryKeyword.vue";
+
 import { ref, onMounted } from "vue";
 import { useSongStore } from "@/store/song";
 import { useRoute, useRouter } from "vue-router";
@@ -118,28 +120,11 @@ const goBack = () => {
     </v-container>
   </v-row>
   <v-row>
-    <v-container align="center" justify="center">
-      <v-row rows="12" class="ma-0 mt-2 pa-0">
-        <v-row rows="12" class="detail-container" style="height: 250px">
-          <v-col cols="6">
-            <v-btn width="100%" height="100%" class="radius-12 song-preview">
-              <h1 class="mb-12" style="color: white; font-size: 48px">
-                동요 미리듣기
-              </h1></v-btn
-            >
-          </v-col>
-
-          <v-col cols="6" align="center" justify="center">
-            <v-btn width="100%" height="100%" class="radius-12 create-story">
-              <h1 class="mb-12" style="color: white; font-size: 48px">
-                동화 생성하기
-              </h1></v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-row>
+    <v-container>
+      <StoryKeyword :songDetail="songDetail"></StoryKeyword>
     </v-container>
   </v-row>
+
   <v-container>
     <StoryBook />
   </v-container>
