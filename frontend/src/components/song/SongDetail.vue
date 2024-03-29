@@ -11,22 +11,11 @@ const songStore = useSongStore();
 const route = useRoute();
 const router = useRouter();
 const songId = route.params.songId;
+
 console.log(songId);
-
+const fullImageUrl = ref<string>('');
 const songDetail = ref<RefSongDetail>(null);
-
-songStore.getSong(
-  songId as string,
-  (res) => {
-    if (res.status == HttpStatusCode.Ok) {
-      console.log(res.data);
-      songDetail.value = res.data;
-    }
-  },
-  (err) => {}
-);
-
-onMounted(() => {});
+const pageNumber = ref(1);
 
 const isBlue = ref(false);
 
@@ -43,6 +32,36 @@ const goBack = () => {
   console.log("call goback");
   router.go(-1);
 };
+
+const getFullImageUrl = (imageUrl: string) => {
+  // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
+  console.log(imageUrl + "1.png");
+  return imageUrl + '1.png'; // 추가적인 문자열을 덧붙임
+};
+
+watch(songDetail, () => {
+  fullImageUrl.value = getFullImageUrl(songDetail.value.songImageUrl);
+  pageNumber.value = songDetail.value.lyricsList.length;
+  console.log(pageNumber.value);
+});
+
+// 컴포넌트가 마운트된 후 실행되는 동작 정의
+onMounted(() => {
+  // songId를 사용하여 songDetail을 가져오고 fullImageUrl 값을 설정
+  songStore.getSong(
+    songId as string,
+    (res) => {
+      if (res.status == HttpStatusCode.Ok) {
+        console.log(res.data);
+        songDetail.value = res.data;
+      }
+    },
+    (err) => {
+      console.error(err);
+    }
+  );
+});
+
 </script>
 
 <template>
@@ -50,9 +69,11 @@ const goBack = () => {
     <v-container>
       <v-row rows="12" class="ma-2 mt-2 pa-0">
         <v-col rows="3"
-          ><v-btn @click="goBack" style="background: none" elevation="0"
-            ><h3>< 뒤로가기</h3></v-btn
-          ></v-col
+        >
+          <v-btn @click="goBack" style="background: none" elevation="0"
+          ><h3>< 뒤로가기</h3></v-btn
+          >
+        </v-col
         >
         <v-col></v-col>
         <v-col></v-col>
@@ -81,14 +102,15 @@ const goBack = () => {
             <v-col cols="auto" class="ma-0">{{ songDetail?.likeCount }}</v-col>
             <v-col cols="auto" class="ma-0 mt-1">
               <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%"
-            /></v-col>
+              />
+            </v-col>
             <v-col cols="auto" class="ma-0">{{ songDetail?.views }}</v-col>
           </v-row>
         </v-col>
       </v-row>
       <v-row rows="12" class="detail-container" style="height: 400px">
         <v-row rows="5" class="pa-4 ma-0">
-          <v-img class="imgcontent" src="@/assets/song.png"></v-img>
+          <v-img class="imgcontent" :src="fullImageUrl"></v-img>
         </v-row>
         <v-row rows="7">
           <v-col cols="4" align="end">
@@ -126,7 +148,7 @@ const goBack = () => {
   </v-row>
 
   <v-container>
-    <StoryBook />
+    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber"/>
   </v-container>
 </template>
 
@@ -135,11 +157,13 @@ const goBack = () => {
   background-color: rgb(255, 215, 254);
   border-radius: 16px;
 }
+
 .detail-container {
   background-color: rgb(253, 253, 253);
   border-radius: 24px;
   margin-left: 24px;
 }
+
 .radius-12 {
   border-radius: 12px;
 }
@@ -153,14 +177,17 @@ const goBack = () => {
   background-size: cover;
   transition: transform 0.3s ease;
 }
+
 .song-preview:hover {
   transform: scale(1.1); /* 호버 시 이미지를 1.1배 확대 */
 }
+
 .create-story {
   background: url("../../assets/character_3.png");
   background-size: cover;
   transition: transform 0.3s ease;
 }
+
 .create-story:hover {
   transform: scale(1.1); /* 호버 시 이미지를 1.1배 확대 */
 }
