@@ -5,7 +5,7 @@ import SongDetail from "@/pages/SongDetail.vue";
 
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
-import { useUserStore } from "@/store/app";
+import { useUserStore } from "@/store/user";
 import { RouteRecordRaw } from "vue-router";
 
 const routes = [
@@ -30,7 +30,7 @@ const routes = [
     name: "signup",
     component: SignUp,
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
