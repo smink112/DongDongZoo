@@ -1,5 +1,6 @@
 package com.dongdong.zoo.song.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,12 +22,16 @@ public class Lyrics {
 
     // 가사 한줄 내용
     private String content;
+
+    @Column(name = "start_time")
+    private String startTime;
+
     @Column(name = "song_id", insertable = false, updatable = false)
     private Long songId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "song_id")
-    @JsonManagedReference
+    @JsonBackReference
     @Setter
     private Song song;
 
