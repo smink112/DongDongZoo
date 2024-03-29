@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import router from "@/router";
 
 const showBanner1 = ref(false);
 const showBanner2 = ref(false);
@@ -16,6 +17,11 @@ const doScroll = (event: any) => {
   } else if (scrollTop > 900 && !showBanner3.value) {
     showBanner3.value = true;
   }
+};
+
+const goSongList = () => {
+  console.log("call goback");
+  router.push('SongList');
 };
 
 onMounted(() => {
@@ -67,7 +73,7 @@ onUnmounted(() => {
             <v-img class="img" src="@/assets/character_3.png">
               <h1 class="inner-text-h1">지금바로 서비스를 이용하세요!</h1>
             </v-img>
-            <v-btn size="large" rounded class="inner-btn">
+            <v-btn @click="goSongList" size="large" rounded class="inner-btn">
               서비스 이용하기
             </v-btn>
           </v-row>
