@@ -20,7 +20,11 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,8 +38,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http
-//			.httpBasic(Customizer.withDefaults())
-			.httpBasic(AbstractHttpConfigurer::disable)
+			.httpBasic(Customizer.withDefaults())
+			// .httpBasic(AbstractHttpConfigurer::disable)
 			.formLogin(AbstractHttpConfigurer::disable)
 			.csrf(AbstractHttpConfigurer::disable)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -43,23 +47,20 @@ public class SecurityConfig {
 				requests -> requests
 					.anyRequest().permitAll()
 			)
-//			.addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class)
-//			.addFilterAfter(tokenIssueFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후
-//			.addFilterAfter(tokenWithdrawalFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후?
+			// .addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class)
+			.addFilterAfter(tokenIssueFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후
+			// .addFilterAfter(tokenWithdrawalFilter(), BasicAuthenticationFilter.class) // todo: 순서 -> 인증 및 권환 확인 이후?
 			.build();
 	}
 
-//	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
 		return new TokenAuthenticationFilter(tokenHandler, tokenManagementService, tokenAuthenticationFilterIgnoredPatterns());
 	}
 
-//	@Bean
 	public TokenIssueFilter tokenIssueFilter() {
 		return new TokenIssueFilter(tokenHandler, tokenManagementService, tokenIssueFilterPatterns());
 	}
 
-//	@Bean
 	public TokenWithdrawalFilter tokenWithdrawalFilter() {
 		return new TokenWithdrawalFilter(tokenHandler, tokenManagementService, tokenWithdrawalFilterPatterns());
 	}
@@ -91,5 +92,18 @@ public class SecurityConfig {
 
 	private List<String> tokenWithdrawalFilterPatterns() {
 		return List.of("/auth/logout");
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }
