@@ -1,5 +1,10 @@
 export interface Authentication {
-  id: string;
+  email: string;
+  password: string;
+}
+export interface SignUp {
+  username: string;
+  email: string;
   password: string;
 }
 export interface NullUser {
@@ -28,6 +33,6 @@ export interface SongDetail {
 }
 
 type RefSongDetail = SongDetail | null;
-type User = NullUser | null;
+type User = NullUser | string | null;
 type RefUser = User | Ref;
 type RefSong = Song | null;

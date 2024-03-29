@@ -4,6 +4,10 @@ import type { User } from "@/types";
 import type { PropType } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { useUserStore } from "@/store/user";
+import { useRouter } from "vue-router";
+const userStore = useUserStore();
+const router = useRouter();
 const props = defineProps<{ user: User }>();
 
 const user = ref<User>(null);
@@ -35,6 +39,8 @@ const myAgitation = () => {
 
 const logout = () => {
   toggleState();
+  userStore.logout();
+  router.push("/");
 };
 </script>
 
