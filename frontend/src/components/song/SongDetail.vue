@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import StoryBook from "./StoryBook.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useSongStore } from "@/store/song";
 import { useRoute, useRouter } from "vue-router";
 import { HttpStatusCode } from "axios";
@@ -9,22 +9,21 @@ const songStore = useSongStore();
 const route = useRoute();
 const router = useRouter();
 const songId = route.params.songId;
-console.log(songId);
 
+console.log(songId);
+const fullImageUrl = ref<string>('');
 const songDetail = ref<RefSongDetail>(null);
 
-songStore.getSong(
-  songId as string,
-  (res) => {
-    if (res.status == HttpStatusCode.Ok) {
-      console.log(res.data);
-      songDetail.value = res.data;
-    }
-  },
-  (err) => {}
-);
-
-onMounted(() => {});
+// songStore.getSong(
+//   songId as string,
+//   (res) => {
+//     if (res.status == HttpStatusCode.Ok) {
+//       console.log(res.data);
+//       songDetail.value = res.data;
+//     }
+//   },
+//   (err) => {}
+// );
 
 const isBlue = ref(false);
 
@@ -41,6 +40,36 @@ const goBack = () => {
   console.log("call goback");
   router.go(-1);
 };
+
+const getFullImageUrl = (imageUrl: string) => {
+  // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
+  console.log(imageUrl+"1.png");
+  return imageUrl + '1.png'; // 추가적인 문자열을 덧붙임
+};
+
+watch(songDetail, () => {
+  if (songDetail.value) {
+    fullImageUrl.value = getFullImageUrl(songDetail.value.songImageUrl);
+  }
+});
+
+// 컴포넌트가 마운트된 후 실행되는 동작 정의
+onMounted(() => {
+  // songId를 사용하여 songDetail을 가져오고 fullImageUrl 값을 설정
+  songStore.getSong(
+    songId as string,
+    (res) => {
+      if (res.status == HttpStatusCode.Ok) {
+        console.log(res.data);
+        songDetail.value = res.data;
+      }
+    },
+    (err) => {
+      console.error(err);
+    }
+  );
+});
+
 </script>
 
 <template>
@@ -86,7 +115,7 @@ const goBack = () => {
       </v-row>
       <v-row rows="12" class="detail-container" style="height: 400px">
         <v-row rows="5" class="pa-4 ma-0">
-          <v-img class="imgcontent" src="@/assets/song.png"></v-img>
+          <v-img class="imgcontent" :src="fullImageUrl"></v-img>
         </v-row>
         <v-row rows="7">
           <v-col cols="4" align="end">
