@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 import { ref, watch, onMounted } from "vue";
+import { User } from "@/types";
 import { useUserStore } from "@/store/user";
 import Auth from "@/components/appbar/Auth.vue";
 import NotAuth from "@/components/appbar/NotAuth.vue";
-const store = useUserStore();
-store.fetchDummyUser();
+const userStore = useUserStore();
 
-const user = ref(store.user);
+const user = ref<User>(null);
+watch(
+  () => userStore.user,
+  (newUser) => {
+    user.value = newUser;
+  }
+);
 </script>
 <template>
   <v-app-bar :elevation="0">
