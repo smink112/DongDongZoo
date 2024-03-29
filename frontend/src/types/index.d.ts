@@ -21,7 +21,8 @@ export interface SongDetail {
   songFileUrl: string;
   songId: number;
   songImageUrl: string;
-  songKeywordlist: string[] | string;
+  songKeywordList: string[] | string;
+  songKeywordKoreanList: string[] | string;
   songName: string;
   views: number;
 }

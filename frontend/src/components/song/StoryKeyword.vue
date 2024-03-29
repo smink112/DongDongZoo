@@ -14,7 +14,7 @@ watch(
   () => props.songDetail,
   (newVal) => {
     songDetail.value = newVal;
-    const list = Object.values(songDetail.value.lyricsList);
+    const list = Object.values(songDetail.value.songKeywordKoreanList);
     checkBtn = list.map((a) => ref(false));
   }
 );
@@ -62,7 +62,8 @@ const highlightBtn = (index) => {
                 <v-card-text class="text-h3 pa-10" style="width: 1000px">
                   <v-row cols="12" md="1" sm="3">
                     <v-list-item
-                      v-for="(list, index) in props.songDetail.lyricsList"
+                      v-for="(list, index) in props.songDetail
+                        .songKeywordKoreanList"
                       :key="index"
                     >
                       <v-btn
