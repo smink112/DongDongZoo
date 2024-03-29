@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
-import { SongStore } from "@/store/app";
-
-const store = SongStore();
-store.fetchDummyList();
-
-const song = ref(store.song);
-
-console.log(song);
+import { ref, defineProps } from "vue";
+import { RouterLink } from "vue-router";
+import { RefSong } from "@/types";
+const props = defineProps<{
+  song: RefSong;
+}>();
 </script>
 
 <template>
-  <div>
-    <v-card class="songcard" @click="$router.push('/songDetail')">
+  <RouterLink
+    v-if="props.song"
+    class="router-link"
+    :to="{ name: 'songDetail', params: { songId: props.song.songId } }"
+  >
+    <v-card class="songcard">
       <v-img class="white--text" height="200px" src="@/assets/song.png">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -22,28 +23,30 @@ console.log(song);
           </v-layout>
         </v-container>
       </v-img>
-      <v-card-title>
-        <div>
-          <span class="grey--text"> {{ song!.title }} </span><br />
-          <span class="song_content"
-            ><div></div>
-            {{ song!.content }}</span
-          ><br />
-          <span>Last updated 5mins ago</span>
-        </div>
-      </v-card-title>
-      <!-- <v-card-actions>
-                  <v-btn flat color="orange">Share</v-btn>
-                  <v-btn flat color="orange">Explore</v-btn>
-                </v-card-actions> -->
+      <v-col cols="auto">
+        <h3>{{ props.song.songName }}</h3></v-col
+      >
+      <v-row cols="12" class="card-body">
+        <v-col cols="6">
+          <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%" />
+          {{ props.song.views }}
+        </v-col>
+        <v-col cols="6">
+          <font-awesome-icon :icon="['fas', 'heart']" style="opacity: 50%" />
+          {{ props.song.likeCount }}
+        </v-col>
+      </v-row>
+      <br />
     </v-card>
-  </div>
+  </RouterLink>
 </template>
 
 <style scoped>
 .songcard {
-  width: 300px;
   height: 300px;
-  margin: 20px;
+  border-radius: 24px;
+}
+.card-body {
+  margin: 12px;
 }
 </style>

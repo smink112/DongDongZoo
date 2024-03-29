@@ -8,7 +8,7 @@ const showBanner3 = ref(false);
 const doScroll = (event: any) => {
   const el = event.target.documentElement;
   const scrollTop = el.scrollTop;
-  console.log(scrollTop);
+  // console.log(scrollTop);
   if (scrollTop > 100 && !showBanner1.value) {
     showBanner1.value = true;
   } else if (scrollTop > 350 && !showBanner2.value) {

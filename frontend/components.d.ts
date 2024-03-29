@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Auth: typeof import('./src/components/appbar/Auth.vue')['default']
+    FloatingButton: typeof import('./src/components/common/FloatingButton.vue')['default']
     LoadingView: typeof import('./src/components/common/LoadingView.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']
     NotAuth: typeof import('./src/components/appbar/NotAuth.vue')['default']
@@ -17,5 +18,6 @@ declare module 'vue' {
     SongDetail: typeof import('./src/components/song/SongDetail.vue')['default']
     SongList: typeof import('./src/components/song/SongList.vue')['default']
     StoryBook: typeof import('./src/components/song/StoryBook.vue')['default']
+    StoryKeyword: typeof import('./src/components/song/StoryKeyword.vue')['default']
   }
 }
