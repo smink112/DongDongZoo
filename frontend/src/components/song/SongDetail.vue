@@ -2,7 +2,7 @@
 import StoryBook from "./StoryBook.vue";
 import StoryKeyword from "./StoryKeyword.vue";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useSongStore } from "@/store/song";
 import { useRoute, useRouter } from "vue-router";
 import { HttpStatusCode } from "axios";

@@ -90,7 +90,7 @@ const logout = () => {
           <font-awesome-icon :icon="['fas', 'user']" style="margin-top: 4px" />
         </div>
       </v-col>
-      <v-col cols="auto"> {{ user?.nickName }}</v-col>
+      <v-col cols="auto">동동이</v-col>
       <v-col cols="3">
         <transition name="fade">
           <div>
