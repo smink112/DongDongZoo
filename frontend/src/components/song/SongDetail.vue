@@ -35,8 +35,11 @@ const goBack = () => {
 
 const getFullImageUrl = (imageUrl: string) => {
   // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
-  console.log(imageUrl + "1.png");
-  return imageUrl + '1.png'; // 추가적인 문자열을 덧붙임
+  console.log(imageUrl + "0.png");
+  // 서버용 이미지
+  return imageUrl + '0.png';
+  // 로컬용 이미지
+  // return '/src' + imageUrl + '0.png';
 };
 
 watch(songDetail, () => {
