@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, watch, onMounted } from "vue";
 import type { User } from "@/types";
-import type { PropType } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import { useUserStore } from "@/store/user";
 import { useRouter } from "vue-router";
 const userStore = useUserStore();
@@ -21,9 +19,6 @@ watch(
   }
 );
 
-onMounted(() => {
-  user.value = props.user;
-});
 
 const toggleState = () => {
   drawerState.value = !drawerState.value;

@@ -7,13 +7,14 @@ import Auth from "@/components/appbar/Auth.vue";
 import NotAuth from "@/components/appbar/NotAuth.vue";
 const userStore = useUserStore();
 
-const user = ref<User>(null);
+const user = ref<User>(userStore.user);
 watch(
   () => userStore.user,
   (newUser) => {
     user.value = newUser;
   }
 );
+
 </script>
 <template>
   <v-app-bar :elevation="0">
