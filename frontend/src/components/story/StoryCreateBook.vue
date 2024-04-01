@@ -6,14 +6,21 @@ import { useRoute, useRouter } from "vue-router";
 import { useSongStore } from "@/store/song";
 import { HttpStatusCode } from "axios";
 import CreateLoadingView from "@/components/common/CreateLoadingView.vue";
-import { RefStoryImageRes, RefSongDetail } from "@/types/"
+import { RefStoryImageRes, RefSongDetail } from "@/types/";
 
 const route = useRoute();
 const songId = route.params.songId;
 const tag = route.params.tag;
 const songStore = useSongStore();
 
-const storyBookImageUrlList = ref<RefStoryImageRes>();
+// 새롭게 생성된 이미지 url 리스트
+const storyBookImageUrlList = ref<string[]>();
+
+const fullImageUrl = ref<string>("");
+const songDetail = ref<RefSongDetail>(null);
+const pageNumber = ref(1);
+
+storyBookImageUrlList[0] = "/assets/song/bear/";
 
 songStore.createSong(
   songId as string,
@@ -28,18 +35,12 @@ songStore.createSong(
 
 // StoryBook
 
-const router = useRouter();
-
-console.log(songId);
-const fullImageUrl = ref<string>('');
-const songDetail = ref<RefSongDetail>(null);
-const pageNumber = ref(1);
-
 const getFullImageUrl = (imageUrl: string) => {
+  songDetail.value.songImageUrl = storyBookImageUrlList[0]; // 일단 생성된 이미지 url 가져옴
   // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
   console.log(imageUrl + "0.png");
   // 서버용 이미지
-  return imageUrl + '0.png';
+  return imageUrl + "0.png";
   // 로컬용 이미지
   // return '/src' + imageUrl + '0.png';
 };
@@ -66,13 +67,12 @@ onMounted(() => {
     }
   );
 });
-
 </script>
 <template>
   <!-- <CreateLoadingView></CreateLoadingView> -->
 
   <v-container>
-    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber"/>
+    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber" />
   </v-container>
 </template>
 
