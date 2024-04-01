@@ -1,22 +1,33 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
+import { defineProps, onMounted, onUnmounted, ref, watch } from "vue";
 import AudioPlayer from "vue3-audio-player";
 import "vue3-audio-player/dist/style.css";
+import { RefSongDetail } from "@/types";
+
+const props = defineProps<{
+  songDetail: RefSongDetail;
+  pageNumber: number;
+}>();
 
 let currentPage = 1;
-const pageNumber = 6;
 let interval: any;
+
 onMounted(() => {
   (<any>$("#book")).turn({
     gradients: true,
     acceleration: true,
-    pages: pageNumber,
+    pages: props.pageNumber,
   });
+
   interval = setInterval(() => {
-    if (currentPage === pageNumber) clearInterval(interval);
+    if (currentPage > props.pageNumber) {
+      currentPage = 1;
+      clearInterval(interval);
+    }
     (<any>$("#book")).turn("page", currentPage++);
-  }, 1500);
+  }, 5000);
 });
+
 onUnmounted(() => {
   if (interval !== undefined) clearInterval(interval);
 });
@@ -24,34 +35,26 @@ onUnmounted(() => {
 
 <template>
   <v-col class="col" cols="12">
-    <h1 class="title">샘플 동화 읽어보기</h1>
+    <h1 class="title">동화 읽어보기</h1>
     <div class="container">
       <div id="book">
-        <div class="page">
-          <v-img src="@/assets/sample/bear1.png" />
-        </div>
-        <div class="page">
-          <v-img src="@/assets/sample/bear2.png" />
-        </div>
-        <div class="page">
-          <v-img src="@/assets/sample/bear3.png" />
-        </div>
-        <div class="page">
-          <v-img src="@/assets/sample/bear4.png" />
-        </div>
-        <div class="page">
-          <v-img src="@/assets/sample/bear5.png" />
-        </div>
-        <div class="page">
-          <v-img src="@/assets/sample/bear6.png" />
+        <!-- 각 페이지에 대한 v-for 루프 -->
+        <!-- 여기에 6 대신에 props.pageNumber를 넣으면 2페이지 이후부터는 생성이 되지 않는데 왜 그런건지 도저히 모르겠습니다... -->
+        <div v-for="index in 6" class="page">
+          <!-- 현재 페이지의 이미지 -->
+          <!--          서버용 이미지-->
+          <v-img :src="`${props.songDetail?.songImageUrl}${index}.png`"></v-img>
+          <!--          로컬용 이미지-->
+          <!-- <v-img :src="`/src/${props.songDetail?.songImageUrl}${index}.png`"></v-img> -->
+          <!--          <v-img src="@/assets/song/bear/1.png"/>-->
         </div>
       </div>
       <v-col align="center" justify="center">
         <v-col cols="8">
           <AudioPlayer
             :option="{
-              src: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-              title: '곰 세마리',
+              src: `${props.songDetail?.songFileUrl}`,
+              title: `${props.songDetail?.songName}`,
             }"
           />
         </v-col>
@@ -66,12 +69,14 @@ onUnmounted(() => {
   border-radius: 24px;
   background-color: rgb(239, 239, 239);
 }
+
 .title {
   margin-left: 24px;
 }
 
 .container {
   overflow: hidden;
+
   #book {
     margin: 5% auto;
     width: 800px;

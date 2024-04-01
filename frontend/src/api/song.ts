@@ -12,4 +12,8 @@ function requestGetSong(id: string, success: any, error: any) {
   instance.get(`${API_URL}/${id}`).then(success).catch(error);
 }
 
-export { requestGetSong, requestGetSongs };
+function requestCreateSong(id: string, success: any, error: any) {
+  instance.get(`${API_URL}/create/${id}`).then(success).catch(error);
+}
+
+export { requestGetSong, requestGetSongs, requestCreateSong };

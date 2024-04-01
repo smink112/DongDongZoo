@@ -1,5 +1,10 @@
 export interface Authentication {
-  id: string;
+  email: string;
+  password: string;
+}
+export interface SignUp {
+  username: string;
+  email: string;
   password: string;
 }
 export interface NullUser {
@@ -21,12 +26,19 @@ export interface SongDetail {
   songFileUrl: string;
   songId: number;
   songImageUrl: string;
-  songKeywordlist: string[] | string;
+  songKeywordList: string[] | string;
+  songKeywordKoreanList: string[] | string;
   songName: string;
   views: number;
 }
 
+export interface StoryImageRes {
+  startTime: number;
+  content: string;
+  imageURL: string | null;
+}
 type RefSongDetail = SongDetail | null;
-type User = NullUser | null;
+type User = NullUser | string | null;
 type RefUser = User | Ref;
 type RefSong = Song | null;
+type RefStoryImageRes = StoryImageRes | null;

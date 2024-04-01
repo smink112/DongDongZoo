@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { defineProps, ref, watch, onMounted } from "vue";
 import type { User } from "@/types";
-import type { PropType } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import { useUserStore } from "@/store/user";
+import { useRouter } from "vue-router";
+const userStore = useUserStore();
+const router = useRouter();
 const props = defineProps<{ user: User }>();
 
 const user = ref<User>(null);
@@ -17,9 +19,6 @@ watch(
   }
 );
 
-onMounted(() => {
-  user.value = props.user;
-});
 
 const toggleState = () => {
   drawerState.value = !drawerState.value;
@@ -35,6 +34,8 @@ const myAgitation = () => {
 
 const logout = () => {
   toggleState();
+  userStore.logout();
+  router.push("/");
 };
 </script>
 
@@ -89,7 +90,7 @@ const logout = () => {
           <font-awesome-icon :icon="['fas', 'user']" style="margin-top: 4px" />
         </div>
       </v-col>
-      <v-col cols="auto"> {{ user?.nickName }}</v-col>
+      <v-col cols="auto">동동이</v-col>
       <v-col cols="3">
         <transition name="fade">
           <div>
