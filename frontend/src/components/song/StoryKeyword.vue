@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, defineProps, watch } from "vue";
+import { useRouter } from "vue-router";
 import { RefSongDetail } from "@/types";
 import SongDetail from "./SongDetail.vue";
 
@@ -9,6 +10,10 @@ const props = defineProps<{
 
 const songDetail = ref<RefSongDetail>(null);
 let checkBtn = null;
+let tag = ref();
+let nowindex = ref();
+
+const router = useRouter();
 
 watch(
   () => props.songDetail,
@@ -23,8 +28,23 @@ const highlightBtn = (index) => {
   checkBtn.forEach((element) => {
     element.value = false;
   });
+  nowindex.value = index;
   checkBtn[index].value = !checkBtn[index].value;
+  tag.value = props.songDetail.songKeywordList[index];
+  console.log(props.songDetail.songKeywordList[index]);
+  console.log(tag.value);
 };
+
+const clickBtn = () => {
+    console.log(props.songDetail.songKeywordList[nowindex.value])
+    router.push({
+      name: 'create',
+      params: {
+        tag : props.songDetail.songKeywordList[nowindex.value],
+        songId: songDetail.value.songId,
+      }
+    })
+}
 </script>
 
 <template>
@@ -95,7 +115,7 @@ const highlightBtn = (index) => {
                     color="blue"
                     class="inner-btn"
                     text="생성하기"
-                    @click=""
+                    @click="clickBtn"
                   ></v-btn>
                 </v-card-actions>
 

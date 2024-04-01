@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {defineProps, onMounted, onUnmounted, ref, watch} from "vue";
+import { defineProps, onMounted, onUnmounted, ref, watch } from "vue";
 import AudioPlayer from "vue3-audio-player";
 import "vue3-audio-player/dist/style.css";
-import {RefSongDetail} from "@/types";
+import { RefSongDetail } from "@/types";
 
 const props = defineProps<{
   songDetail: RefSongDetail;
@@ -13,7 +13,6 @@ let currentPage = 1;
 let interval: any;
 
 onMounted(() => {
-
   (<any>$("#book")).turn({
     gradients: true,
     acceleration: true,
@@ -36,17 +35,19 @@ onUnmounted(() => {
 
 <template>
   <v-col class="col" cols="12">
-    <h1 class="title">샘플 동화 읽어보기</h1>
+    <h1 class="title">동화 읽어보기</h1>
     <div class="container">
       <div id="book">
         <!-- 각 페이지에 대한 v-for 루프 -->
         <!-- 여기에 6 대신에 props.pageNumber를 넣으면 2페이지 이후부터는 생성이 되지 않는데 왜 그런건지 도저히 모르겠습니다... -->
         <div v-for="index in 6" class="page">
           <!-- 현재 페이지의 이미지 -->
-<!--          서버용 이미지-->
-          <v-img :src="`${props.songDetail?.songImageUrl}${index}.png`"></v-img>
-<!--          로컬용 이미지-->
-<!--          <v-img :src="`/src/${props.songDetail?.songImageUrl}${index}.png`"></v-img>-->
+          <!--          서버용 이미지-->
+          <!-- <v-img :src="`${props.songDetail?.songImageUrl}${index}.png`"></v-img> -->
+          <!--          로컬용 이미지-->
+          <v-img
+            :src="`/src/${props.songDetail?.songImageUrl}${index}.png`"
+          ></v-img>
           <!--          <v-img src="@/assets/song/bear/1.png"/>-->
         </div>
       </div>
@@ -55,7 +56,7 @@ onUnmounted(() => {
           <AudioPlayer
             :option="{
               src: `${props.songDetail?.songFileUrl}`,
-              title: '곰 세마리',
+              title: `${props.songDetail?.songName}`,
             }"
           />
         </v-col>
