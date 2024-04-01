@@ -42,6 +42,7 @@ public class SecurityConfig {
 			// .httpBasic(AbstractHttpConfigurer::disable)
 			.formLogin(AbstractHttpConfigurer::disable)
 			.csrf(AbstractHttpConfigurer::disable)
+			.cors(c -> c.configurationSource(corsConfigurationSource()))
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(
 				requests -> requests
@@ -97,9 +98,12 @@ public class SecurityConfig {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*"));
+		// configuration.setAllowedOrigins(Arrays.asList("*", "http://localhost:3000/"));
+		// configuration.setAllowedOrigins(List.of("http://localhost:3000", "*"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+		configuration.setAllowedOriginPatterns(List.of("*"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("*"));
+		// configuration.setAllowedMethods(Arrays.asList("*"));
 		configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
