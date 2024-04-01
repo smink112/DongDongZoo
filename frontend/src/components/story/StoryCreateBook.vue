@@ -14,65 +14,28 @@ const tag = route.params.tag;
 const songStore = useSongStore();
 
 // 새롭게 생성된 이미지 url 리스트
-const storyBookImageUrlList = ref<string[]>();
+const List = ref<RefStoryImageRes>();
 
-const fullImageUrl = ref<string>("");
-const songDetail = ref<RefSongDetail>(null);
-const pageNumber = ref(1);
+songStore.createSong(
+  songId as string,
+  tag as string,
+  (res) => {
+    if (res.status == HttpStatusCode.Ok) {
+      console.log(res.data);
+      List.value = res.data;
+      console.log(List.value);
+    }
+  },
+  (err) => {}
+);
 
-storyBookImageUrlList[0] = "/assets/song/bear/";
-
-// songStore.createSong(
-//   songId as string,
-//   (res) => {
-//     if (res.status == HttpStatusCode.Ok) {
-//       console.log(res.data);
-//       storyBookImageUrlList.value = res.data;
-//     }
-//   },
-//   (err) => {}
-// );
-
-// // StoryBook
-
-// const getFullImageUrl = (imageUrl: string) => {
-//   songDetail.value.songImageUrl = storyBookImageUrlList[0]; // 일단 생성된 이미지 url 가져옴
-//   // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
-//   console.log(imageUrl + "0.png");
-//   // 서버용 이미지
-//   return imageUrl + "0.png";
-//   // 로컬용 이미지
-//   // return '/src' + imageUrl + '0.png';
-// };
-
-// watch(songDetail, () => {
-//   fullImageUrl.value = getFullImageUrl(songDetail.value.songImageUrl);
-//   pageNumber.value = songDetail.value.lyricsList.length;
-//   console.log(pageNumber.value);
-// });
-
-// // 컴포넌트가 마운트된 후 실행되는 동작 정의
-// onMounted(() => {
-//   // songId를 사용하여 songDetail을 가져오고 fullImageUrl 값을 설정
-//   songStore.getSong(
-//     songId as string,
-//     (res) => {
-//       if (res.status == HttpStatusCode.Ok) {
-//         console.log(res.data);
-//         songDetail.value = res.data;
-//       }
-//     },
-//     (err) => {
-//       console.error(err);
-//     }
-//   );
-// });
+// StoryBook
 </script>
 <template>
   <!-- <CreateLoadingView></CreateLoadingView> -->
 
   <v-container>
-    <!-- <StoryBook :songDetail="songDetail" :pageNumber="pageNumber" /> -->
+    <StoryBook />
   </v-container>
 </template>
 
