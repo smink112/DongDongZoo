@@ -32,7 +32,13 @@ export interface SongDetail {
   views: number;
 }
 
+export interface StoryImageRes {
+  startTime: number;
+  content: string;
+  imageURL: string | null;
+}
 type RefSongDetail = SongDetail | null;
 type User = NullUser | string | null;
 type RefUser = User | Ref;
 type RefSong = Song | null;
+type RefStoryImageRes = StoryImageRes | null;

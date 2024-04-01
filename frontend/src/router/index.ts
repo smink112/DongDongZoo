@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, useRoute } from "vue-router";
 import index from "@/pages/index.vue";
 import SongList from "@/pages/SongList.vue";
 import SongDetail from "@/pages/SongDetail.vue";
+import StoryCreate from "@/pages/StoryCreate.vue";
 
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
@@ -53,6 +54,14 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: index,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/create/:songId/:tag",
+    name: "create",
+    component: StoryCreate,
     meta: {
       requiresAuth: false,
     },
