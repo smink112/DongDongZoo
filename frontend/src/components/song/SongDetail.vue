@@ -13,7 +13,7 @@ const router = useRouter();
 const songId = route.params.songId;
 
 console.log(songId);
-const fullImageUrl = ref<string>('');
+const fullImageUrl = ref<string>("");
 const songDetail = ref<RefSongDetail>(null);
 const pageNumber = ref(1);
 
@@ -37,9 +37,9 @@ const getFullImageUrl = (imageUrl: string) => {
   // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
   console.log(imageUrl + "0.png");
   // 서버용 이미지
-  return imageUrl + '0.png';
+  return imageUrl + "0.png";
   // 로컬용 이미지
-  // return '/src' + imageUrl + '0.png';
+  // return "/src" + imageUrl + "0.png";
 };
 
 watch(songDetail, () => {
@@ -64,20 +64,17 @@ onMounted(() => {
     }
   );
 });
-
 </script>
 
 <template>
   <v-row>
     <v-container>
       <v-row rows="12" class="ma-2 mt-2 pa-0">
-        <v-col rows="3"
-        >
+        <v-col rows="3">
           <v-btn @click="goBack" style="background: none" elevation="0"
-          ><h3>< 뒤로가기</h3></v-btn
+            ><h3>< 뒤로가기</h3></v-btn
           >
-        </v-col
-        >
+        </v-col>
         <v-col></v-col>
         <v-col></v-col>
         <v-col></v-col>
@@ -104,8 +101,7 @@ onMounted(() => {
             </v-col>
             <v-col cols="auto" class="ma-0">{{ songDetail?.likeCount }}</v-col>
             <v-col cols="auto" class="ma-0 mt-1">
-              <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%"
-              />
+              <font-awesome-icon :icon="['fas', 'eye']" style="opacity: 50%" />
             </v-col>
             <v-col cols="auto" class="ma-0">{{ songDetail?.views }}</v-col>
           </v-row>
@@ -116,14 +112,14 @@ onMounted(() => {
           <v-img class="imgcontent" :src="fullImageUrl"></v-img>
         </v-row>
         <v-row rows="7">
-          <v-col cols="4" align="end">
-            <v-row>
+          <v-col cols="2" align="end">
+            <v-row class="title_content">
               <v-col cols="12" class="ma-2"></v-col>
               <v-col cols="12" class="ma-1"><h2>동요 제목</h2></v-col>
               <v-col cols="12" class="ma-1"><h2>동요 가사</h2></v-col>
             </v-row>
           </v-col>
-          <v-col cols="7">
+          <v-col cols="8">
             <v-row>
               <v-col cols="12" class="ma-2"></v-col>
               <v-col cols="12" class="info-container ma-2">
@@ -151,7 +147,7 @@ onMounted(() => {
   </v-row>
 
   <v-container>
-    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber"/>
+    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber" />
   </v-container>
 </template>
 
@@ -173,6 +169,7 @@ onMounted(() => {
 
 .imgcontent {
   border-radius: 24px;
+  width: 100%;
 }
 
 .song-preview {
@@ -193,5 +190,9 @@ onMounted(() => {
 
 .create-story:hover {
   transform: scale(1.1); /* 호버 시 이미지를 1.1배 확대 */
+}
+
+.title_content {
+  /* width: 100px; */
 }
 </style>

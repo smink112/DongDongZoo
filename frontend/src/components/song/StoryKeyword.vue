@@ -3,6 +3,7 @@ import { ref, defineProps, watch } from "vue";
 import { useRouter } from "vue-router";
 import { RefSongDetail } from "@/types";
 import SongDetail from "./SongDetail.vue";
+import AudioPlayer from "vue3-audio-player";
 
 const props = defineProps<{
   songDetail: RefSongDetail;
@@ -36,15 +37,21 @@ const highlightBtn = (index) => {
 };
 
 const clickBtn = () => {
-    console.log(props.songDetail.songKeywordList[nowindex.value])
-    router.push({
-      name: 'create',
-      params: {
-        tag : props.songDetail.songKeywordList[nowindex.value],
-        songId: songDetail.value.songId,
-      }
-    })
-}
+  console.log(props.songDetail.songKeywordList[nowindex.value]);
+  router.push({
+    name: "create",
+    params: {
+      tag: props.songDetail.songKeywordList[nowindex.value],
+      songId: songDetail.value.songId,
+    },
+  });
+};
+
+const startdongyo = (sound) => {
+  var audio = new AudioPlayer(sound);
+  console.log(audio);
+  audio.play();
+};
 </script>
 
 <template>
@@ -70,7 +77,7 @@ const clickBtn = () => {
                 rounded
                 v-bind="activatorProps"
                 text=""
-                ><h1 class="mb-12" style="color: white; font-size: 48px">
+                ><h1 class="mb-12" style="color: skyblue; font-size: 48px">
                   동화 생성하기
                 </h1></v-btn
               >
