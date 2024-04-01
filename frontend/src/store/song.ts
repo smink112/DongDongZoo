@@ -8,8 +8,8 @@ export const useSongStore = defineStore("song", () => {
   const getSongs = (success: any, error: any) => {
     requestGetSongs(success, error);
   };
-  const createSong = (id: string, success: any, error: any) => {
-    requestCreateSong(id, success, error);
+  const createSong = (id: string, tag: string, success: any, error: any) => {
+    requestCreateSong(id, tag, success, error);
   };
 
   return { getSong, getSongs, createSong };
