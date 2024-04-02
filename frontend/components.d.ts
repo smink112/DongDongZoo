@@ -20,7 +20,6 @@ declare module 'vue' {
     SongCard: typeof import('./src/components/song/SongCard.vue')['default']
     SongDetail: typeof import('./src/components/song/SongDetail.vue')['default']
     SongList: typeof import('./src/components/song/SongList.vue')['default']
-    StoryBook: typeof import('./src/components/song/StoryBook.vue')['default']
     StoryCreateBook: typeof import('./src/components/story/StoryCreateBook.vue')['default']
     StoryKeyword: typeof import('./src/components/song/StoryKeyword.vue')['default']
   }
