@@ -20,13 +20,6 @@ const props = defineProps<{
         height="200px"
         :src="assetPath + props.song.songImageUrl + '/0.png'"
         style="margin: 10px"
-      > -->
-      <!--        로컬용 이미지-->
-      <v-img
-        class="white&#45;&#45;text"
-        height="200px"
-        :src="`/src` + props.song.songImageUrl + '/0.png'"
-        style="margin: 10px"
       >
         <v-container fill-height fluid>
           <v-layout fill-height>
