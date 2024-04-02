@@ -23,6 +23,9 @@ public class SongProfileController {
 	@GetMapping("profiles/songlike/{userId}")
 	public List<SongListResponse> getSongLikeList(@PathVariable Long userId) {
 
+		songRepository.findSongsByLikes(userId).stream()
+			.forEach(s -> System.out.println(s.getSongId()));
+
 		return songRepository.findSongsByLikes(userId).stream()
 			.map(result -> SongListResponse.builder()
 				.songId(result.getSongId())
