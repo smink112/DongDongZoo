@@ -11,6 +11,7 @@
 * Nginx
 * Docker
 
+<br><br><br>
 
 ## Nginx Configuration
 ### nginx - proxy.conf
@@ -99,21 +100,21 @@ server {
         send_timeout 180;
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/j10a201.p.ssafy.io/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/j10a201.p.ssafy.io/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/{서버 URI}/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/{서버 URI}/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
 }
 
 server {
-    if ($host = j10a201.p.ssafy.io) {
+    if ($host = {서버 URI}) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
         listen 80;
-        server_name j10a201.p.ssafy.io;
+        server_name {서버 URI};
     return 404; # managed by Certbot
 
 
@@ -122,6 +123,8 @@ server {
 ```
 _________
 
+<br>
+<br>
 
 ## Jenkins Pipelie
 ### Jenkins SpringBoot Pipeline
@@ -133,7 +136,7 @@ pipeline {
     }
     environment {
         releaseServerAccount = 'ubuntu'
-        releaseServerUri = 'j10a201.p.ssafy.io'
+        releaseServerUri = '서버 URI'
         releasePort = '8081'
         SERVER_NAME = 'server-0.0.1-SNAPSHOT.jar'
     }
@@ -141,10 +144,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // // GitLab 저장소에서 'dev' 브랜치의 소스 코드를 체크아웃합니다.
-                // git branch: 'dev', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
+                // GitLab 저장소에서 'master' 브랜치의 소스 코드를 체크아웃합니다.
+                git branch: 'master', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
                 // GitLab 저장소에서 'backend' 브랜치의 소스 코드를 체크아웃합니다.
-                git branch: 'backend', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
+                // git branch: 'backend', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
             }
         }
         stage('Spring Boot Build') {
@@ -178,7 +181,6 @@ pipeline {
 }
 
 ```
-_________ 
 ### Jenkins Vue Pipeline
 ```
 pipeline {
@@ -190,17 +192,17 @@ pipeline {
 
     environment {
         releaseServerAccount = 'ubuntu'
-        releaseServerUri = 'j10a201.p.ssafy.io'
+        releaseServerUri = '서버 URI'
         releasePort = '3000'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // // GitLab 저장소에서 'dev' 브랜치의 소스 코드를 체크아웃합니다.
-                // git branch: 'dev', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
+                // // GitLab 저장소에서 'master' 브랜치의 소스 코드를 체크아웃합니다.
+                git branch: 'master', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
                 // GitLab 저장소에서 'frontend' 브랜치의 소스 코드를 체크아웃합니다.
-                git branch: 'frontend', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
+                // git branch: 'frontend', credentialsId: 'smink95', url: 'https://lab.ssafy.com/s10-ai-image-sub2/S10P22A201.git'
             }
         }
         stage('Vue Project Build') {
@@ -226,6 +228,7 @@ pipeline {
 ```
 _________ 
 
+<br><br><br>
 
 ## Deploy Shell Script
 ### ServerDeploy.sh
@@ -240,10 +243,9 @@ sudo pkill -f server-0.0.1-SNAPSHOT.jar
 sleep 3
 
 echo "> sudo nohup java -jar -Dserver.port=8081 Server-0.0.1-SNAPSHOT.jar &"
-sudo nohup java -jar -Dserver.port=8081 /home/ubuntu/dongdongzoo/server-0.0.1-SNAPSHOT.jar &
+sudo nohup java -jar -Dserver.port=8081 /home/ubuntu/dongdongzoo/server-0.0.1-SNAPSHOT.jar 1>output.log 2>error.log &
 
 ```
-_________
 ### deploy.sh
 Vue Client deploy shell script
 ```
@@ -259,21 +261,7 @@ sudo service nginx status
 ```
 _________ 
 
-
-
-_________
-### 사용 포트 정보들
-```
-8080 : Jenkins
-8081 : SpringBoot
-3000 : Vue
-3306 : MySQL
-6379 : Redis
-443 : SSH
-```
-_________ 
-
-
+<br><br><br>
 
 ## Project Environment Variable
 ### SpringBoot : application.properties
@@ -297,18 +285,29 @@ service.url={서비스url}
 _________ 
 ### Vue : .env
 ```
-VITE_API_URL=https://j10a201.p.ssafy.io
+VITE_API_URL={서버 URL}
 # VITE_API_URL=http://localhost:8080
 
 ```
-_________ 
 ### Vue : .env.development
 ```
 VITE_ASSET_PATH="/src"
 ```
-_________ 
 ### Vue : .env.production
 ```
 VITE_ASSET_PATH=""
 ```
 _________ 
+
+<br><br><br>
+
+## 사용 포트 정보들
+```
+8080 : Jenkins
+8081 : SpringBoot
+3000 : Vue
+3306 : MySQL
+6379 : Redis
+443 : SSH
+```
+
