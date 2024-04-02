@@ -71,7 +71,8 @@ const handleSubmit = () => {
       data,
       (res) => {
         if (res.status == HttpStatusCode.Ok) {
-          userStore.user = res.data;
+          userStore.user = res.data.substring(0, 1);
+          console.log(res.data.substring(0, 1));
           router.push("/");
         }
       },
