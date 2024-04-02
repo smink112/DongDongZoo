@@ -21,7 +21,7 @@ watch(
     <RouterLink to="/">
       <v-img
         class="logo"
-        width="48px"
+        width="126px"
         height="48px"
         position="left"
         src="@/assets/logo-1.svg"

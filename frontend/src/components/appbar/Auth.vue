@@ -19,7 +19,6 @@ watch(
   }
 );
 
-
 const toggleState = () => {
   drawerState.value = !drawerState.value;
 };
@@ -28,8 +27,9 @@ const myFairyTales = () => {
   toggleState();
 };
 
-const myAgitation = () => {
+const mySongs = () => {
   toggleState();
+  router.push("/mySongList");
 };
 
 const logout = () => {
@@ -43,7 +43,7 @@ const logout = () => {
   <v-btn class="container" @click="toggleState" id="menu-activator">
     <v-menu activator="#menu-activator">
       <v-list>
-        <v-list-item>
+        <!-- <v-list-item>
           <v-btn elevation="0" class="menu-btn" @click="myFairyTales">
             <v-list-item-title
               ><font-awesome-icon
@@ -52,9 +52,9 @@ const logout = () => {
               />내가 만든 동화</v-list-item-title
             >
           </v-btn>
-        </v-list-item>
+        </v-list-item> -->
         <v-list-item>
-          <v-btn elevation="0" class="menu-btn" @click="myAgitation">
+          <v-btn elevation="0" class="menu-btn" @click="mySongs">
             <v-list-item-title>
               <font-awesome-icon
                 :icon="['fas', 'book-open']"
