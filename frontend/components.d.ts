@@ -13,6 +13,7 @@ declare module 'vue' {
     LoadingView: typeof import('./src/components/common/LoadingView.vue')['default']
     LocalStoryBook: typeof import('./src/components/song/LocalStoryBook.vue')['default']
     Main: typeof import('./src/components/main/Main.vue')['default']
+    MySongList: typeof import('./src/components/song/MySongList.vue')['default']
     NotAuth: typeof import('./src/components/appbar/NotAuth.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

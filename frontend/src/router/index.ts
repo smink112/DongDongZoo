@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, useRoute } from "vue-router";
 import index from "@/pages/index.vue";
 import SongList from "@/pages/SongList.vue";
+import MySongList from "@/pages/MySongList.vue";
 import SongDetail from "@/pages/SongDetail.vue";
 import StoryCreate from "@/pages/StoryCreate.vue";
 
@@ -40,6 +41,14 @@ const routes = [
     component: SongList,
     meta: {
       requiresAuth: false,
+    },
+  },
+  {
+    path: "/mySongList",
+    name: "mySongList",
+    component: MySongList,
+    meta: {
+      requiresAuth: true,
     },
   },
   {

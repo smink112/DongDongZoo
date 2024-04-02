@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/utils/http-commons";
-
+import { SongLikeRequest } from "@/types";
 const instance = axiosInstance();
 
 const API_URL = "/likes";
@@ -29,8 +29,8 @@ function requestDeleteStoryLike(
     .catch(error);
 }
 
-function requestPostSongLike(success: any, error: any) {
-  instance.post(`${API_URL}/song`).then(success).catch(error);
+function requestPostSongLike(req: SongLikeRequest, success: any, error: any) {
+  instance.post(`${API_URL}/song`, req).then(success).catch(error);
 }
 
 function requestGetSongLike(

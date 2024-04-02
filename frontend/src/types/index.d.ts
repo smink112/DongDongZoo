@@ -8,9 +8,7 @@ export interface SignUp {
   password: string;
 }
 export interface NullUser {
-  id: number;
-  nickName: string;
-  profile: string;
+  user: number;
 }
 export interface Song {
   songId: number | string;
@@ -36,6 +34,10 @@ export interface StoryImageRes {
   startTime: string;
   content: string;
   imageURL: string | null;
+}
+export interface SongLikeRequest {
+  userId: number;
+  songId: number;
 }
 type RefSongDetail = SongDetail | null;
 type User = NullUser | string | null;

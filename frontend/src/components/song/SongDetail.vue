@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import LocalStoryBook from "./LocalStoryBook.vue";
 import StoryKeyword from "./StoryKeyword.vue";
-
 import { ref, onMounted, watch } from "vue";
 import { useSongStore } from "@/store/song";
 import { useRoute, useRouter } from "vue-router";
 import { HttpStatusCode } from "axios";
 import { RefSongDetail } from "@/types";
+import { useUserStore } from "@/store/user";
 const assetPath = import.meta.env.VITE_ASSET_PATH;
 const songStore = useSongStore();
+const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 const songId = route.params.songId;
@@ -22,9 +23,27 @@ const isBlue = ref(false);
 
 const toggleHeart = () => {
   if (isBlue.value) {
-    songDetail.value.likeCount--;
+    userStore.deleteSongLike(
+      songDetail.value.songId,
+      (res) => {
+        console.log(res.data);
+        songDetail.value.likeCount--;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   } else {
-    songDetail.value.likeCount++;
+    userStore.postSongLike(
+      songDetail.value.songId,
+      (res) => {
+        console.log(res.data);
+        songDetail.value.likeCount++;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   isBlue.value = !isBlue.value;
 };
@@ -49,6 +68,20 @@ onMounted(() => {
       if (res.status == HttpStatusCode.Ok) {
         console.log(res.data);
         songDetail.value = res.data;
+        userStore.getSongLike(
+          songDetail.value.songId,
+          (res) => {
+            if ((res.status = HttpStatusCode.Ok)) {
+              console.log(res.data);
+              if (res.data == true) {
+                isBlue.value = true;
+              } else {
+                isBlue.value = false;
+              }
+            }
+          },
+          (err) => {}
+        );
       }
     },
     (err) => {
