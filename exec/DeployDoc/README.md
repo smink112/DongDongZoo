@@ -197,6 +197,11 @@ pipeline {
     }
 
     stages {
+        stage('기존 프로젝트 파일 삭제'){
+            steps {
+                sh "rm -r /var/jenkins_home/workspace/Vue_pipeline/*"
+            }
+        }
         stage('Checkout') {
             steps {
                 // // GitLab 저장소에서 'master' 브랜치의 소스 코드를 체크아웃합니다.
@@ -217,6 +222,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(credentials: ['dongdongzoo-server']) {
+                    sh "ssh $releaseServerAccount@$releaseServerUri 'sudo rm -r /home/ubuntu/dongdongzoo/frontend'"
                     sh "scp -r /var/jenkins_home/workspace/Vue_pipeline/frontend/ $releaseServerAccount@$releaseServerUri:/home/ubuntu/dongdongzoo/frontend"
                     sh "ssh $releaseServerAccount@$releaseServerUri 'sudo /home/ubuntu/dongdongzoo/deploy.sh'"
                 }
