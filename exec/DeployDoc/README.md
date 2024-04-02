@@ -1,7 +1,6 @@
 ## 서비스 버전 정보
 * jdk 17
 * SpringBoot 3.2.3
-* J
 * Vue 3
 * TypeScript
 * MySQL
