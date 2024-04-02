@@ -4,6 +4,8 @@ import AudioPlayer from "vue3-audio-player";
 import "vue3-audio-player/dist/style.css";
 import { RefSongDetail } from "@/types";
 
+const assetPath = import.meta.env.VITE_ASSET_PATH;
+console.log(assetPath);
 const props = defineProps<{
   songDetail: RefSongDetail;
   pageNumber: number;
@@ -13,23 +15,27 @@ let currentPage = 1;
 let interval: any;
 
 onMounted(() => {
-  (<any>$("#book")).turn({
-    gradients: true,
-    acceleration: true,
-    pages: props.pageNumber,
-  });
-
-  interval = setInterval(() => {
-    if (currentPage > props.pageNumber) {
-      currentPage = 1;
-      clearInterval(interval);
-    }
-    (<any>$("#book")).turn("page", currentPage++);
-  }, 5000);
+  console.log(props.pageNumber);
+  setTimeout(() => {
+    (<any>$("#book")).turn({
+      gradients: true,
+      acceleration: true,
+      pages: props.pageNumber,
+    });
+    interval = setInterval(() => {
+      (<any>$("#book")).turn("page", currentPage++);
+      if (currentPage > props.pageNumber) {
+        console.log(currentPage);
+        clearInterval(interval);
+      }
+    }, 1000);
+  }, 100);
 });
 
 onUnmounted(() => {
-  if (interval !== undefined) clearInterval(interval);
+  if (interval !== undefined) {
+    clearInterval(interval);
+  }
 });
 </script>
 
@@ -40,20 +46,19 @@ onUnmounted(() => {
       <div id="book">
         <!-- 각 페이지에 대한 v-for 루프 -->
         <!-- 여기에 6 대신에 props.pageNumber를 넣으면 2페이지 이후부터는 생성이 되지 않는데 왜 그런건지 도저히 모르겠습니다... -->
-        <div v-for="index in 6" class="page">
+        <!-- props 받은 후 생성 vs props 받기 전 생성 시점 차이 -->
+        <div v-for="index in props.pageNumber" class="page">
           <!-- 현재 페이지의 이미지 -->
-          <!--          서버용 이미지-->
-          <v-img :src="`${props.songDetail?.songImageUrl}${index}.png`"></v-img>
-          <!--          로컬용 이미지-->
-          <!-- <v-img :src="`/src/${props.songDetail?.songImageUrl}${index}.png`"></v-img> -->
-          <!--          <v-img src="@/assets/song/bear/1.png"/>-->
+          <v-img
+            :src="`${assetPath}${props.songDetail?.songImageUrl}${index}.png`"
+          ></v-img>
         </div>
       </div>
       <v-col align="center" justify="center">
         <v-col cols="8">
           <AudioPlayer
             :option="{
-              src: `${props.songDetail?.songFileUrl}`,
+              src: `${assetPath}${props.songDetail?.songFileUrl}`,
               title: `${props.songDetail?.songName}`,
             }"
           />

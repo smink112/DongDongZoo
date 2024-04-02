@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import StoryBook from "./StoryBook.vue";
+import LocalStoryBook from "./LocalStoryBook.vue";
 import StoryKeyword from "./StoryKeyword.vue";
 
 import { ref, onMounted, watch } from "vue";
@@ -7,6 +7,7 @@ import { useSongStore } from "@/store/song";
 import { useRoute, useRouter } from "vue-router";
 import { HttpStatusCode } from "axios";
 import { RefSongDetail } from "@/types";
+const assetPath = import.meta.env.VITE_ASSET_PATH;
 const songStore = useSongStore();
 const route = useRoute();
 const router = useRouter();
@@ -33,17 +34,8 @@ const goBack = () => {
   router.go(-1);
 };
 
-const getFullImageUrl = (imageUrl: string) => {
-  // 이미지의 경로를 조합하여 전체 이미지 URL을 반환
-  console.log(imageUrl + "0.png");
-  // 서버용 이미지
-  return imageUrl + "0.png";
-  // 로컬용 이미지
-  // return "/src" + imageUrl + "0.png";
-};
-
 watch(songDetail, () => {
-  fullImageUrl.value = getFullImageUrl(songDetail.value.songImageUrl);
+  fullImageUrl.value = `${assetPath}${songDetail.value.songImageUrl}`;
   pageNumber.value = songDetail.value.lyricsList.length;
   console.log(pageNumber.value);
 });
@@ -147,7 +139,7 @@ onMounted(() => {
   </v-row>
 
   <v-container>
-    <StoryBook :songDetail="songDetail" :pageNumber="pageNumber" />
+    <LocalStoryBook :songDetail="songDetail" :pageNumber="pageNumber" />
   </v-container>
 </template>
 
