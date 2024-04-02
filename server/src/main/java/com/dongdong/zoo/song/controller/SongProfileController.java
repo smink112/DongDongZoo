@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Transactional(readOnly = true)
 public class SongProfileController {
 
@@ -22,9 +24,6 @@ public class SongProfileController {
 
 	@GetMapping("profiles/songlike/{userId}")
 	public List<SongListResponse> getSongLikeList(@PathVariable Long userId) {
-
-		songRepository.findSongsByLikes(userId).stream()
-			.forEach(s -> System.out.println(s.getSongId()));
 
 		return songRepository.findSongsByLikes(userId).stream()
 			.map(result -> SongListResponse.builder()
