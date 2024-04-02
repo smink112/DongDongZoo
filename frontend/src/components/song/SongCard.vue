@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref, defineProps, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { RefSong } from "@/types";
 const assetPath = import.meta.env.VITE_ASSET_PATH;
 const props = defineProps<{
   song: RefSong;
 }>();
+
+onMounted(() => {
+  console.log(props.song.likeCount);
+});
 </script>
 
 <template>
