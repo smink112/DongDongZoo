@@ -14,7 +14,6 @@
 
 
 ## Nginx Configuration
-_________ 
 ### nginx - proxy.conf
 ```
 upstream backend {
@@ -126,7 +125,6 @@ _________
 
 
 ## Jenkins Pipelie
-_________
 ### Jenkins SpringBoot Pipeline
 ```
 pipeline {
@@ -231,7 +229,6 @@ _________
 
 
 ## Deploy Shell Script
-_________
 ### ServerDeploy.sh
 SpringBoot Server deploy shell script
 ```
@@ -280,7 +277,6 @@ _________
 
 
 ## Project Environment Variable
-_________ 
 ### SpringBoot : application.properties
 ```
 spring.datasource.url=jdbc:mysql://{도메인명}/{스키마}
