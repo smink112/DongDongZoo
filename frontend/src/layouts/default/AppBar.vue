@@ -35,7 +35,7 @@ watch(
           v-bind="activatorProps"
           text="이용 방법"
           variant="flat"
-          style="color: blue"
+          style="color: blue; font-size: 25px"
         ></v-btn>
       </template>
 
@@ -66,7 +66,7 @@ watch(
       </template>
     </v-dialog>
     <RouterLink to="/songList">
-      <v-btn text="서비스 이용하기"></v-btn>
+      <v-btn text="서비스 이용하기" class="service_btn"></v-btn>
     </RouterLink>
     <Auth v-if="user" :user="user" />
     <NotAuth v-else />
@@ -80,5 +80,9 @@ watch(
 .card_content {
   background: url("../../assets/background.gif");
   background-size: cover;
+}
+
+.service_btn {
+  font-size: 25px;
 }
 </style>
