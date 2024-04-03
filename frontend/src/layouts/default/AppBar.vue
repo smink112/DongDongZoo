@@ -19,13 +19,7 @@ watch(
 <template>
   <v-app-bar :elevation="0">
     <RouterLink to="/">
-      <v-img
-        class="logo"
-        width="126px"
-        height="48px"
-        position="left"
-        src="@/assets/logo-1.svg"
-      />
+      <v-img class="logo" src="@/assets/logo-1.svg" />
     </RouterLink>
     <v-spacer />
     <!-- 이용방법 모달 버튼 -->
@@ -74,7 +68,10 @@ watch(
 </template>
 <style>
 .logo {
+  width: 200px;
+  height: 65px;
   margin: 50px;
+  position: "left";
 }
 
 .card_content {
