@@ -272,12 +272,6 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -360,3 +354,5 @@ yarn-error.log
 .DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,vue,vuejs,intellij,java,node
+
+*.mp4

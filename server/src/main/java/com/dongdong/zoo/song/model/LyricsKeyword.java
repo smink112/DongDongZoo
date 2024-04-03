@@ -1,11 +1,14 @@
 package com.dongdong.zoo.song.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class LyricsKeyword {
 
@@ -21,7 +24,7 @@ public class LyricsKeyword {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lyrics_id")
-    @JsonManagedReference
+    @JsonBackReference
     @Setter
     private Lyrics lyrics;
 }
